@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS BATCH (
   fg FLOAT,
   abv FLOAT,
   brewdate DATE,
-  tapdate DATE,
-  finishdate DATE,
+  --tapdate DATE,
+  --finishdate DATE,
   userid INT REFERENCES USERS(userid)
 );

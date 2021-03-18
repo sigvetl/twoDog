@@ -1,12 +1,13 @@
 package com.sigvetl.twoDog.model;
 
-public class Beer {
+public class BeerForm {
     private String name;
     private String type;
     private Integer beerId;
     private Integer ibu;
     private String recipeLink;
-    private Integer userId;
+
+    public BeerForm(){}
 
     public String getName() {
         return name;
@@ -46,13 +47,5 @@ public class Beer {
 
     public void setRecipeLink(String recipeLink) {
         this.recipeLink = recipeLink;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 }

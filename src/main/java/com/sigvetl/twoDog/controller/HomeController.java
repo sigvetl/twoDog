@@ -1,6 +1,11 @@
 package com.sigvetl.twoDog.controller;
 
+import com.sigvetl.twoDog.model.BatchForm;
+import com.sigvetl.twoDog.model.BeerForm;
+import com.sigvetl.twoDog.service.BatchService;
+import com.sigvetl.twoDog.service.BeerService;
 import com.sigvetl.twoDog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,16 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/home")
 public class HomeController {
+
+    @Autowired
     private UserService userService;
 
-    public HomeController(UserService userService){
-        this.userService = userService;
-    }
+    @Autowired
+    private BeerService beerService;
+
+    @Autowired
+    private BatchService batchService;
 
     @GetMapping
-    public String home(Authentication authentication, Model model) {
+    public String home(Authentication authentication, Model model, BeerForm beerForm, BatchForm batchForm) {
         String username = authentication.getName();
+        this.beerService.trackLoggedInUseId(username);
+        this.batchService.trackLoggedInUseId(username);
+
+        updateHome(authentication, model, this.beerService, this.batchService, this.userService);
 
         return "home";
+    }
+
+    static void updateHome(Authentication auth, Model model, BeerService beerService,
+                           BatchService batchService, UserService userService){
+        model.addAttribute("beers", beerService.getBeers());
+        model.addAttribute("batches", batchService.getBatches());
+        model.addAttribute(userService.getUserId(auth.getName()));
     }
 }
