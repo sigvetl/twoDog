@@ -25,26 +25,26 @@ public class BatchController {
     BeerService beerService;
 
     @PostMapping("/batches")
-    public String addUpdateBatch(Authentication auth, BatchForm batchForm, Model model){
+    public String addUpdateBatch(Authentication auth, BatchForm batchForm, BeerForm beerForm, Model model){
         if (this.batchService.batchExists(batchForm)){
             this.batchService.updateBatch(batchForm);
         } else{
-            this.batchService.trackLoggedInUseId(auth.getName());
+            this.batchService.trackLoggedInUserId(auth.getName());
             this.batchService.createBatch(batchForm);
         }
 
         //Update homecontroller
         HomeController.updateHome(auth, model, beerService, batchService, userService);
 
-        return "";
+        return "home";
     }
 
-    @PostMapping("/batch/delete/{batchid}")
+    @GetMapping("/batch/delete/{batchid}")
     public String deleteBatch(@PathVariable("batchid") Integer batchId, Authentication auth, BeerForm beerForm, BatchForm batchForm, Model model){
-        this.beerService.deleteBeer(batchId);
+        this.batchService.deleteBatch(batchId);
 
         HomeController.updateHome(auth, model, this.beerService, this.batchService, this.userService);
 
-        return "";
+        return "home";
     }
 }

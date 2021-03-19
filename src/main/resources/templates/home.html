@@ -18,12 +18,12 @@
         <div id="contentDiv" style="clear: right;">
             <nav style="clear: right;">
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link" id="nav-beers-tab" data-toggle="tab" href="#nav-beers" role="tab" aria-controls="nav-beers" aria-selected="true">Beers</a>
+                    <a class="nav-item nav-link active" id="nav-beers-tab" data-toggle="tab" href="#nav-beers" role="tab" aria-controls="nav-beers" aria-selected="true">Beers</a>
                     <a class="nav-item nav-link" id="nav-batches-tab" data-toggle="tab" href="#nav-batches" role="tab" aria-controls="nav-batches" aria-selected="false">Batches</a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show" id="nav-beers" role="tabpanel" aria-labelledby="nav-beers-tab">
+                <div class="tab-pane fade show active" id="nav-beers" role="tabpanel" aria-labelledby="nav-beers-tab">
                     <button id="add-beer" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showBeerModal()">
                         + Add a New Beer
                     </button>
@@ -37,17 +37,17 @@
                                 <th style="width: 60%" scope="col">Type</th>
                             </tr>
                             </thead>
-                            <tbody th:each="b : ${beer}">
+                            <tbody th:each="beer : ${beers}">
                             <tr>
                                 <td>
                                     <button id="edit-beer" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBeerModal( [[${b.getBeerId()}]],[[${b.getName()}]],[[${b.getTitle()}]] )">
+                                            th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]],[[${beer.getName()}]],[[${beer.getType()}]] )">
                                         Edit
                                     </button>
-                                    <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${b.beerId})}">Delete</a>
+                                    <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
                                 </td>
-                                <th id="beerName" th:text="${b.name}" scope="row">Example Name</th>
-                                <td id="beerType" th:text="${b.type}">Example Type</td>
+                                <th id="beerName" th:text="${beer.name}" scope="row">Example Name</th>
+                                <td id="beerType" th:text="${beer.type}">Example Type</td>
                             </tr>
                             </tbody>
                         </table>
@@ -90,26 +90,24 @@
                     </button>
 
                     <div class="table-responsive">
-                        <table class="table table-striped" th:object="${batch}" id="batchTable">
+                        <table class="table table-striped" th:object="${batches}" id="batchTable">
                             <thead>
-                            <tr>
-                                <th style="width: 20%" scope="col"></th>
-                                <th style="width: 35%" scope="col">Volume</th>
-                                <th style="width: 35%" scope="col">Original gravity</th>
-                            </tr>
+                                <tr>
+                                    <th style="width: 20%" scope="col"></th>
+                                    <th style="width: 35%" scope="col">Volume</th>
+                                    <th style="width: 35%" scope="col">Original gravity</th>
+                                </tr>
                             </thead>
-                            <tbody th:each="b : ${batch}">
+                            <tbody th:each="batch : ${batches}">
                             <tr>
                                 <td>
                                     <button id="edit-batch" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBatchModal( [[${b.getBatchId()}]],[[${b.getVolume()}]],[[${b.getOg()}]])">
+                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]],[[${batch.getVolume()}]],[[${batch.getOg()}]])">
                                         Edit</button>
-                                    <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${b.batchId})}">Delete</a>
+                                    <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
-                                <!--hvis feil sjekk her. batchid -- batchId-->
-                                <th id="batchId" th:text="${b.batchid}" scope="row">Example BatchId</th>
-                                <td id="volume" th:text="${b.volume}">Example Volume</td>
-                                <td id="og" th:text="${b.og}">Example Original Gravity</td>
+                                <td id="volume" th:text="${batch.volume}">Example Volume</td>
+                                <td id="og" th:text="${batch.og}">Example Original Gravity</td>
                             </tr>
                             </tbody>
                         </table>
@@ -153,6 +151,7 @@
     <script th:src="@{/js/jquery-slim.min.js}"></script>
     <script th:src="@{/js/popper.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
+
     <script type="text/javascript">
         // For opening beer modal
         function showBeerModal(beerId, name, type) {
@@ -164,10 +163,10 @@
 
         // For opening batch modal
         function showBatchModal(batchId, volume, og) {
-            $('#batch-id').val(beerId ? beerId : '');
-            $('#batch-volume').val(name ? name : '');
-            $('#batch-og').val(type ? type : '');
-            $('#batchrModal').modal('show');
+            $('#batch-id').val(batchId ? batchId : '');
+            $('#batch-volume').val(volume ? volume : '');
+            $('#batch-og').val(og ? og : '');
+            $('#batchModal').modal('show');
         }
     </script>
     </body>

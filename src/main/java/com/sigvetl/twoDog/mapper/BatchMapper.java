@@ -16,13 +16,18 @@ public interface BatchMapper {
     @Select("SELECT * FROM BATCH WHERE batchid=#{batchId}")
     Integer getBatch(Batch batch);
 
-    @Insert("INSERT INTO BATCH(VOLUME, BREWDATE, OG, RECIPELINK, USERID) " +
-            "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")
+    //values are wrong
+//    @Insert("INSERT INTO BATCH(VOLUME, BREWDATE, OG, RECIPELINK, USERID) " +
+//            "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")
+    @Insert("INSERT INTO BATCH(VOLUME, OG, USERID) " +
+            "VALUES(#{volume}, #{og}, #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "batchId")
     void insertBatch(Batch batch);
 
-    @Update("UPDATE BATCH SET NAME = #{name}, TYPE = #{type}, IBU = #{ibu}, " +
-            "RECIPELINK = #{recipeLink}, USERID = #{userId} WHERE BATCHID = #{batchId}")
+    //values are wrong
+//    @Update("UPDATE BATCH SET NAME = #{name}, TYPE = #{type}, IBU = #{ibu}, " +
+//            "RECIPELINK = #{recipeLink}, USERID = #{userId} WHERE BATCHID = #{batchId}")
+    @Update("UPDATE BATCH SET VOLUME = #{volume}, OG = #{og}, USERID = #{userId} WHERE BATCHID = #{batchId}")
     void updateBatch(Batch batch);
 
     @Delete("DELETE FROM BATCH WHERE BATCHID = #{batchId}")

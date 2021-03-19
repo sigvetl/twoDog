@@ -56,7 +56,7 @@ public class BatchService {
         return exists;
     }
 
-    public void trackLoggedInUseId(String username){
+    public void trackLoggedInUserId(String username){
         this.userId = userService.getUser(username).getUserId();
     }
 }

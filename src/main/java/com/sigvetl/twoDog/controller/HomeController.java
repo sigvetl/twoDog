@@ -28,8 +28,8 @@ public class HomeController {
     @GetMapping
     public String home(Authentication authentication, Model model, BeerForm beerForm, BatchForm batchForm) {
         String username = authentication.getName();
-        this.beerService.trackLoggedInUseId(username);
-        this.batchService.trackLoggedInUseId(username);
+        this.beerService.trackLoggedInUserId(username);
+        this.batchService.trackLoggedInUserId(username);
 
         updateHome(authentication, model, this.beerService, this.batchService, this.userService);
 
@@ -40,6 +40,6 @@ public class HomeController {
                            BatchService batchService, UserService userService){
         model.addAttribute("beers", beerService.getBeers());
         model.addAttribute("batches", batchService.getBatches());
-        model.addAttribute(userService.getUserId(auth.getName()));
+        model.addAttribute("currentid", userService.getUserId(auth.getName()));
     }
 }

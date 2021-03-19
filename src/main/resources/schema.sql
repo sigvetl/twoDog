@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS BEER (
   name VARCHAR(40) NOT NULL,
   type VARCHAR(20),
   ibu INT,
-  recipeLink VARCHAR(60)
+  recipelink VARCHAR(60),
+  userid INT,
+  foreign key (userid) references USERS(userid)
 );
 
 CREATE TABLE IF NOT EXISTS BATCH (
@@ -25,5 +27,6 @@ CREATE TABLE IF NOT EXISTS BATCH (
   brewdate DATE,
   --tapdate DATE,
   --finishdate DATE,
-  userid INT REFERENCES USERS(userid)
+  userid INT,
+  foreign key (userid) references USERS(userid)
 );
