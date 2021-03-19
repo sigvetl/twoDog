@@ -109,12 +109,13 @@
                         <table class="table table-striped" th:object="${batches}" id="batchTable">
                             <thead>
                                 <tr>
-                                    <th style="width: 20%" scope="col"></th>
-                                    <th style="width: 20%" scope="col">Volume</th>
-                                    <th style="width: 20%" scope="col">Original gravity</th>
-                                    <th style="width: 20%" scope="col">Final gravity</th>
-                                    <th style="width: 20%" scope="col">Alcohol %</th>
-                                    <th style="width: 20%" scope="col">Added By userId</th>
+                                    <th style="width: 10%" scope="col"></th>
+                                    <th style="width: 5%" scope="col">Brew Date</th>
+                                    <th style="width: 5%" scope="col">Volume</th>
+                                    <th style="width: 5%" scope="col">Original gravity</th>
+                                    <th style="width: 5%" scope="col">Final gravity</th>
+                                    <th style="width: 5%" scope="col">Alcohol %</th>
+                                    <th style="width: 5%" scope="col">Added By userId</th>
                                 </tr>
                             </thead>
                             <tbody th:each="batch : ${batches}">
@@ -125,6 +126,8 @@
                                         Edit</button>
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
+                                <!-- direct access to variables or use getters? -->
+                                <td id="brewDate" th:text="${batch.getBrewDate()}">Example Brew Date</td>
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
                                 <td id="og" th:text="${batch.og}">Example Original Gravity</td>
                                 <td id="fg" th:text="${batch.fg} ?: 'N/A'">Example Final Gravity</td>

@@ -1,13 +1,14 @@
 package com.sigvetl.twoDog.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class BatchForm {
     private Integer batchId;
     private Float volume;
-    private LocalDateTime brewDate;
-    private LocalDateTime tapDate;
-    private LocalDateTime finishDate;
+    private LocalDate brewDate;
+    private LocalDate tapDate;
+    private LocalDate finishDate;
     private Float abv;
     private Float og;
     private Float fg;
@@ -29,27 +30,27 @@ public class BatchForm {
         this.volume = volume;
     }
 
-    public LocalDateTime getBrewDate() {
+    public LocalDate getBrewDate() {
         return brewDate;
     }
 
-    public void setBrewDate(LocalDateTime brewDate) {
+    public void setBrewDate(LocalDate brewDate) {
         this.brewDate = brewDate;
     }
 
-    public LocalDateTime getTapDate() {
+    public LocalDate getTapDate() {
         return tapDate;
     }
 
-    public void setTapDate(LocalDateTime tapDate) {
+    public void setTapDate(LocalDate tapDate) {
         this.tapDate = tapDate;
     }
 
-    public LocalDateTime getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(LocalDateTime finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 
