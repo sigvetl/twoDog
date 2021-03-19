@@ -32,6 +32,7 @@ public class BatchService {
 
     public void updateBatch(BatchForm batchForm){
         Batch batch = new Batch();
+        batch.setBatchId(batchForm.getBatchId());
         batch.setVolume(batchForm.getVolume());
         batch.setBrewDate(batchForm.getBrewDate());
         batch.setOg(batchForm.getOg());

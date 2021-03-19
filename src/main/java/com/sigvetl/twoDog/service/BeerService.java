@@ -32,6 +32,7 @@ public class BeerService {
 
     public void updateBeer(BeerForm beerForm){
         Beer beer = new Beer();
+        beer.setBeerId(beerForm.getBeerId());
         //beer.setIbu(beerForm.getIbu());
         beer.setName(beerForm.getName());
         beer.setType(beerForm.getType());
