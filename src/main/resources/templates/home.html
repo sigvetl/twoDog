@@ -44,7 +44,7 @@
                             <tr>
                                 <td>
                                     <button id="edit-beer" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]],[[${beer.getName()}]],[[${beer.getType()}]] )">
+                                            th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]],[[${beer.getName()}]],[[${beer.getType()}]],[[${beer.getIbu()}]],[[${beer.getRecipeLink()}]] )">
                                         Edit
                                     </button>
                                     <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
@@ -52,7 +52,9 @@
                                 <th id="beerName" th:text="${beer.name}" scope="row">Example Name</th>
                                 <td id="beerType" th:text="${beer.type}">Example Type</td>
                                 <th id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</th>
-                                <td id="beerRecipeLink" th:text="${beer.recipeLink}">Example Link</td>
+                                <!--needs to display link in text-->
+                                <td id="beerRecipeLink">
+                                    <a th:href="${beer.recipeLink}">Link</a></td>
                                 <td id="beerUserId" th:text="${beer.userId}">Example Added By</td>
                             </tr>
                             </tbody>
@@ -79,6 +81,14 @@
                                             <label for="beer-type" class="col-form-label">Type</label>
                                             <input th:field="*{type}" type="text" class="form-control" name="type" id="beer-type" maxlength="20" required>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="beer-ibu" class="col-form-label">IBU</label>
+                                            <input th:field="*{ibu}" type="number" class="form-control" name="ibu" id="beer-ibu" min="0" max="120" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-recipelink" class="col-form-label">RecipeLink</label>
+                                            <input th:field="*{recipeLink}" type="text" class="form-control" name="recipeLink" id="beer-recipelink" maxlength="100" required>
+                                        </div>
                                         <button id="beerSubmit" type="submit" class="d-none"></button>
                                     </form>
                                 </div>
@@ -102,6 +112,8 @@
                                     <th style="width: 20%" scope="col"></th>
                                     <th style="width: 20%" scope="col">Volume</th>
                                     <th style="width: 20%" scope="col">Original gravity</th>
+                                    <th style="width: 20%" scope="col">Final gravity</th>
+                                    <th style="width: 20%" scope="col">Alcohol %</th>
                                     <th style="width: 20%" scope="col">Added By userId</th>
                                 </tr>
                             </thead>
@@ -109,12 +121,14 @@
                             <tr>
                                 <td>
                                     <button id="edit-batch" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]],[[${batch.getVolume()}]],[[${batch.getOg()}]])">
+                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]],[[${batch.getVolume()}]],[[${batch.getOg()}]], [[${batch.getFg()}]],[[${batch.getAbv()}]])">
                                         Edit</button>
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
                                 <td id="og" th:text="${batch.og}">Example Original Gravity</td>
+                                <td id="fg" th:text="${batch.fg} ?: 'N/A'">Example Final Gravity</td>
+                                <td id="abv" th:text="${batch.abv} ?: 'N/A'">Example Alcohol %</td>
                                 <td id="batchUserId" th:text="${batch.userId}">Example Added By</td>
                             </tr>
                             </tbody>
@@ -139,7 +153,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-og" class="col-form-label">Original Gravity</label>
-                                            <input th:field="*{og}" type="number" name= "og" class="form-control" id="batch-og" max="2" required>
+                                            <input th:field="*{og}" type="number" step="any" name= "og" class="form-control" id="batch-og" min="1" max="1.08" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="batch-fg" class="col-form-label">Final Gravity</label>
+                                            <input th:field="*{fg}" type="number" step="any" name= "og" class="form-control" id="batch-fg" min="1" max="1.08">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="batch-abv" class="col-form-label">Alcohol by volume</label>
+                                            <input th:field="*{abv}" type="number" step="any" name= "abv" class="form-control" id="batch-abv" max="2" readonly>
                                         </div>
                                         <button id="batchSubmit" type="submit" class="d-none"></button>
                                     </form>
@@ -162,18 +184,22 @@
 
     <script type="text/javascript">
         // For opening beer modal
-        function showBeerModal(beerId, name, type) {
+        function showBeerModal(beerId, name, type, ibu, recipeLink) {
             $('#beer-id').val(beerId ? beerId : '');
             $('#beer-name').val(name ? name : '');
             $('#beer-type').val(type ? type : '');
+            $('#beer-ibu').val(ibu ? ibu : '');
+            $('#beer-recipelink').val(recipeLink ? recipeLink : '');
             $('#beerModal').modal('show');
         }
 
         // For opening batch modal
-        function showBatchModal(batchId, volume, og) {
+        function showBatchModal(batchId, volume, og, fg, abv) {
             $('#batch-id').val(batchId ? batchId : '');
             $('#batch-volume').val(volume ? volume : '');
             $('#batch-og').val(og ? og : '');
+            $('#batch-fg').val(fg ? fg : '');
+            $('#batch-abv').val(abv ? abv : '');
             $('#batchModal').modal('show');
         }
     </script>
