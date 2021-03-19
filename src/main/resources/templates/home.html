@@ -9,9 +9,165 @@
     <title>Home</title>
 </head>
 <body>
-<div>
-    Hello world
-</div>
-</body>
+    <div class="container">
+        <div id="logoutDiv">
+            <form th:action="@{/logout}" action="#" method="POST">
+                <button id="logout-button" type="submit" class="btn btn-secondary float-right">Logout</button>
+            </form>
+        </div>
+        <div id="contentDiv" style="clear: right;">
+            <nav style="clear: right;">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-beers-tab" data-toggle="tab" href="#nav-beers" role="tab" aria-controls="nav-beers" aria-selected="true">Beers</a>
+                    <a class="nav-item nav-link" id="nav-batches-tab" data-toggle="tab" href="#nav-batches" role="tab" aria-controls="nav-batches" aria-selected="false">Batches</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-beers" role="tabpanel" aria-labelledby="nav-beers-tab">
+                    <button id="add-beer" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showBeerModal()">
+                        + Add a New Beer
+                    </button>
 
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="userTable">
+                            <thead>
+                            <tr>
+                                <th style="width: 20%" scope="col"></th>
+                                <th style="width: 20%" scope="col">Name</th>
+                                <th style="width: 60%" scope="col">Type</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="beer : ${beers}">
+                            <tr>
+                                <td>
+                                    <button id="edit-beer" type="button" class="btn btn-success"
+                                            th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]],[[${beer.getName()}]],[[${beer.getType()}]] )">
+                                        Edit
+                                    </button>
+                                    <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
+                                </td>
+                                <th id="beerName" th:text="${beer.name}" scope="row">Example Name</th>
+                                <td id="beerType" th:text="${beer.type}">Example Type</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal fade" id="beerModal" tabindex="-1" role="dialog" aria-labelledby="beerModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="beerModalLabel">Beer</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/beers}" th:object="${beerForm}" method="POST">
+                                        <input th:field="*{beerId}" type="hidden" name="beerId" id="beer-id">
+                                        <div class="form-group">
+                                            <label for="beer-name" class="col-form-label">Name</label>
+                                            <input th:field="*{name}" type="text" name= "name" class="form-control" id="beer-name" maxlength="20" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-type" class="col-form-label">Type</label>
+                                            <input th:field="*{type}" type="text" class="form-control" name="type" id="beer-type" maxlength="20" required>
+                                        </div>
+                                        <button id="beerSubmit" type="submit" class="d-none"></button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="save" onclick="$('#beerSubmit').click();">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-batches" role="tabpanel" aria-labelledby="nav-batches-tab">
+                    <button id="add-batch" style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showBatchModal()">
+                        + Add a New Batch
+                    </button>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped" th:object="${batches}" id="batchTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%" scope="col"></th>
+                                    <th style="width: 35%" scope="col">Volume</th>
+                                    <th style="width: 35%" scope="col">Original gravity</th>
+                                </tr>
+                            </thead>
+                            <tbody th:each="batch : ${batches}">
+                            <tr>
+                                <td>
+                                    <button id="edit-batch" type="button" class="btn btn-success"
+                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]],[[${batch.getVolume()}]],[[${batch.getOg()}]])">
+                                        Edit</button>
+                                    <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
+                                </td>
+                                <td id="volume" th:text="${batch.volume}">Example Volume</td>
+                                <td id="og" th:text="${batch.og}">Example Original Gravity</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal fade" id="batchModal" tabindex="-1" role="dialog" aria-labelledby="batchModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="batchModalLabel">Batch</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/batches}" th:object="${batchForm}" method="POST">
+                                        <input th:field="*{batchId}" type="hidden" name="batchId" id="batch-id">
+                                        <div class="form-group">
+                                            <label for="batch-volume" class="col-form-label">Volume</label>
+                                            <input th:field="*{volume}" type="number" name= "volume" class="form-control" id="batch-volume" max="100" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="batch-og" class="col-form-label">Original Gravity</label>
+                                            <input th:field="*{og}" type="number" name= "og" class="form-control" id="batch-og" max="2" required>
+                                        </div>
+                                        <button id="batchSubmit" type="submit" class="d-none"></button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="batch-save" type="button" class="btn btn-primary" onclick="$('#batchSubmit').click();">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/jquery-slim.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <script type="text/javascript">
+        // For opening beer modal
+        function showBeerModal(beerId, name, type) {
+            $('#beer-id').val(beerId ? beerId : '');
+            $('#beer-name').val(name ? name : '');
+            $('#beer-type').val(type ? type : '');
+            $('#beerModal').modal('show');
+        }
+
+        // For opening batch modal
+        function showBatchModal(batchId, volume, og) {
+            $('#batch-id').val(batchId ? batchId : '');
+            $('#batch-volume').val(volume ? volume : '');
+            $('#batch-og').val(og ? og : '');
+            $('#batchModal').modal('show');
+        }
+    </script>
+    </body>
 </html>
