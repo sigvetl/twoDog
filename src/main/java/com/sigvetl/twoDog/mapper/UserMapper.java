@@ -7,9 +7,15 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface UserMapper {
+
+    @Select("SELECT * FROM USERS")
+    List<User> getUsers();
+
     @Select("SELECT * FROM users WHERE username = #{username}")
     User getUser(String username);
 

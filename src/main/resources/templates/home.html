@@ -34,7 +34,10 @@
                             <tr>
                                 <th style="width: 20%" scope="col"></th>
                                 <th style="width: 20%" scope="col">Name</th>
-                                <th style="width: 60%" scope="col">Type</th>
+                                <th style="width: 20%" scope="col">Type</th>
+                                <th style="width: 20%" scope="col">IBU</th>
+                                <th style="width: 20%" scope="col">RecipeLink</th>
+                                <th style="width: 20%" scope="col">Added By userId</th>
                             </tr>
                             </thead>
                             <tbody th:each="beer : ${beers}">
@@ -48,6 +51,9 @@
                                 </td>
                                 <th id="beerName" th:text="${beer.name}" scope="row">Example Name</th>
                                 <td id="beerType" th:text="${beer.type}">Example Type</td>
+                                <th id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</th>
+                                <td id="beerRecipeLink" th:text="${beer.recipeLink}">Example Link</td>
+                                <td id="beerUserId" th:text="${beer.userId}">Example Added By</td>
                             </tr>
                             </tbody>
                         </table>
@@ -94,8 +100,9 @@
                             <thead>
                                 <tr>
                                     <th style="width: 20%" scope="col"></th>
-                                    <th style="width: 35%" scope="col">Volume</th>
-                                    <th style="width: 35%" scope="col">Original gravity</th>
+                                    <th style="width: 20%" scope="col">Volume</th>
+                                    <th style="width: 20%" scope="col">Original gravity</th>
+                                    <th style="width: 20%" scope="col">Added By userId</th>
                                 </tr>
                             </thead>
                             <tbody th:each="batch : ${batches}">
@@ -108,6 +115,7 @@
                                 </td>
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
                                 <td id="og" th:text="${batch.og}">Example Original Gravity</td>
+                                <td id="batchUserId" th:text="${batch.userId}">Example Added By</td>
                             </tr>
                             </tbody>
                         </table>

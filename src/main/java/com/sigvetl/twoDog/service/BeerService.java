@@ -21,10 +21,10 @@ public class BeerService {
 
     public void createBeer(BeerForm beerForm){
         Beer beer = new Beer();
-        //beer.setIbu(beerForm.getIbu());
+        beer.setIbu(beerForm.getIbu());
         beer.setName(beerForm.getName());
         beer.setType(beerForm.getType());
-        //beer.setRecipeLink(beerForm.getRecipeLink());
+        beer.setRecipeLink(beerForm.getRecipeLink());
         beer.setUserId(this.userId);
 
         this.beerMapper.insertBeer(beer);
@@ -33,10 +33,10 @@ public class BeerService {
     public void updateBeer(BeerForm beerForm){
         Beer beer = new Beer();
         beer.setBeerId(beerForm.getBeerId());
-        //beer.setIbu(beerForm.getIbu());
+        beer.setIbu(beerForm.getIbu());
         beer.setName(beerForm.getName());
         beer.setType(beerForm.getType());
-        //beer.setRecipeLink(beerForm.getRecipeLink());
+        beer.setRecipeLink(beerForm.getRecipeLink());
         beer.setUserId(this.userId);
 
         this.beerMapper.updateBeer(beer);
