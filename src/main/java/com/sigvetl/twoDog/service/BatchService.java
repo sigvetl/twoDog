@@ -24,8 +24,12 @@ public class BatchService {
         batch.setVolume(batchForm.getVolume());
         batch.setBrewDate(batchForm.getBrewDate());
         batch.setOg(batchForm.getOg());
-        //batch.set(batchForm.getRecipeLink());
+        batch.setFg(batchForm.getFg());
+        if (batchForm.getFg() != null){
+            batch.setAbv(calculateAbv(batchForm.getOg(), batchForm.getFg()));
+        }
         batch.setUserId(this.userId);
+        batch.setTapDate(batchForm.getTapDate());
 
         this.batchMapper.insertBatch(batch);
     }
@@ -36,8 +40,15 @@ public class BatchService {
         batch.setVolume(batchForm.getVolume());
         batch.setBrewDate(batchForm.getBrewDate());
         batch.setOg(batchForm.getOg());
-        //batch.set(batchForm.getRecipeLink());
         batch.setUserId(this.userId);
+        batch.setTapDate(batchForm.getTapDate());
+        if (batchForm.getFg() == null){
+            batch.setFg(0f);
+            batch.setAbv(0f);
+        } else{
+            batch.setFg(batchForm.getFg());
+            batch.setAbv(calculateAbv(batchForm.getOg(), batchForm.getFg()));
+        }
 
         this.batchMapper.updateBatch(batch);
     }
@@ -59,5 +70,11 @@ public class BatchService {
 
     public void trackLoggedInUserId(String username){
         this.userId = userService.getUser(username).getUserId();
+    }
+
+    public Float calculateAbv(Float og, Float fg){
+        Float abv =  (og-fg) * 131.25f;
+        Float round = Math.round(abv * 100.00f) / 100.00f;
+        return round;
     }
 }

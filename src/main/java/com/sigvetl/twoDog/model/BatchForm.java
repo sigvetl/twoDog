@@ -1,13 +1,17 @@
 package com.sigvetl.twoDog.model;
 
-import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 public class BatchForm {
     private Integer batchId;
     private Float volume;
-    private LocalDateTime brewDate;
-    private LocalDateTime tapDate;
-    private LocalDateTime finishDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate brewDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate tapDate;
+    private LocalDate finishDate;
     private Float abv;
     private Float og;
     private Float fg;
@@ -29,27 +33,27 @@ public class BatchForm {
         this.volume = volume;
     }
 
-    public LocalDateTime getBrewDate() {
+    public LocalDate getBrewDate() {
         return brewDate;
     }
 
-    public void setBrewDate(LocalDateTime brewDate) {
+    public void setBrewDate(LocalDate brewDate) {
         this.brewDate = brewDate;
     }
 
-    public LocalDateTime getTapDate() {
+    public LocalDate getTapDate() {
         return tapDate;
     }
 
-    public void setTapDate(LocalDateTime tapDate) {
+    public void setTapDate(LocalDate tapDate) {
         this.tapDate = tapDate;
     }
 
-    public LocalDateTime getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(LocalDateTime finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 
