@@ -1,7 +1,6 @@
 package com.sigvetl.twoDog.mapper;
 
 import com.sigvetl.twoDog.model.Batch;
-import com.sigvetl.twoDog.model.Beer;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
