@@ -182,7 +182,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-quality" class="col-form-label">Quality</label>
-                                            <input th:field="*{quality}" type="text" name= "quality" class="form-control" id="batch-quality" maxlength="10">
+                                            <select th:field="*{quality}" name= "quality" class="form-control" id="batch-quality" >
+                                                <option value="Good">Good</option>
+                                                <option value="Average">Average</option>
+                                                <option value="Bad">Bad</option>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-comments" class="col-form-label">Comments</label>
