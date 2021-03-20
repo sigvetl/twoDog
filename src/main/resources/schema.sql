@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS BEER (
   ibu INT,
   recipelink VARCHAR(60),
   userid INT,
+  createdby VARCHAR(40),
+  lastupdatedby VARCHAR(40),
   foreign key (userid) references USERS(userid)
 );
 

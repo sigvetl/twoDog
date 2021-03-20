@@ -26,7 +26,8 @@ public class BeerService {
         beer.setType(beerForm.getType());
         beer.setRecipeLink(beerForm.getRecipeLink());
         beer.setUserId(this.userId);
-
+        beer.setCreatedBy(userService.getUserFullname(this.userId));
+        beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
         this.beerMapper.insertBeer(beer);
     }
 
@@ -38,7 +39,7 @@ public class BeerService {
         beer.setType(beerForm.getType());
         beer.setRecipeLink(beerForm.getRecipeLink());
         beer.setUserId(this.userId);
-
+        beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
         this.beerMapper.updateBeer(beer);
     }
 

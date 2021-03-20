@@ -37,7 +37,7 @@
                                 <th style="width: 20%" scope="col">Type</th>
                                 <th style="width: 20%" scope="col">IBU</th>
                                 <th style="width: 20%" scope="col">RecipeLink</th>
-                                <th style="width: 20%" scope="col">Added By userId</th>
+                                <th style="width: 20%" scope="col">Last Edited By</th>
                             </tr>
                             </thead>
                             <tbody th:each="beer : ${beers}">
@@ -52,12 +52,12 @@
                                 <th id="beerName" th:text="${beer.name}" scope="row">Example Name</th>
                                 <td id="beerType" th:text="${beer.type}">Example Type</td>
                                 <th id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</th>
-                                <!--needs to display link in text-->
+
                                 <td id="beerRecipeLink">
                                     <a th:href="${beer.recipeLink}">
                                         <span th:text="${beer.recipeLink}"></span>
                                     </a></td>
-                                <td id="beerUserId" th:text="${beer.userId}">Example Added By</td>
+                                <td id="beerLastUpdatedBy" th:text="${beer.lastUpdatedBy}">Example Last Updated By</td>
                             </tr>
                             </tbody>
                         </table>
