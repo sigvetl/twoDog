@@ -25,8 +25,11 @@ public class BatchService {
         batch.setBrewDate(batchForm.getBrewDate());
         batch.setOg(batchForm.getOg());
         batch.setFg(batchForm.getFg());
-        batch.setAbv(batchForm.getAbv());
+        if (batchForm.getFg() != null){
+            batch.setAbv(calculateAbv(batchForm.getOg(), batchForm.getFg()));
+        }
         batch.setUserId(this.userId);
+        batch.setTapDate(batchForm.getTapDate());
 
         this.batchMapper.insertBatch(batch);
     }
@@ -38,6 +41,7 @@ public class BatchService {
         batch.setBrewDate(batchForm.getBrewDate());
         batch.setOg(batchForm.getOg());
         batch.setUserId(this.userId);
+        batch.setTapDate(batchForm.getTapDate());
         if (batchForm.getFg() == null){
             batch.setFg(0f);
             batch.setAbv(0f);

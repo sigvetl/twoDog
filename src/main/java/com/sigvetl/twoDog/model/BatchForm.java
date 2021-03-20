@@ -1,12 +1,15 @@
 package com.sigvetl.twoDog.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class BatchForm {
     private Integer batchId;
     private Float volume;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate brewDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate tapDate;
     private LocalDate finishDate;
     private Float abv;

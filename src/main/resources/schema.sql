@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS BATCH (
   fg FLOAT,
   abv FLOAT,
   brewdate DATE,
-  --tapdate DATE,
+  tapdate DATE,
   --finishdate DATE,
   userid INT,
   foreign key (userid) references USERS(userid)
