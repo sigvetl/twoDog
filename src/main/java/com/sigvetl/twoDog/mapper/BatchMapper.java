@@ -1,7 +1,6 @@
 package com.sigvetl.twoDog.mapper;
 
 import com.sigvetl.twoDog.model.Batch;
-import com.sigvetl.twoDog.model.Beer;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -19,16 +18,16 @@ public interface BatchMapper {
     //values are wrong
 //    @Insert("INSERT INTO BATCH(VOLUME, BREWDATE, OG, RECIPELINK, USERID) " +
 //            "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")
-    @Insert("INSERT INTO BATCH(VOLUME, OG, FG, ABV, USERID, BREWDATE, TAPDATE) " +
-            "VALUES(#{volume}, #{og}, #{fg}, #{abv}, #{userId}, #{brewDate}, #{tapDate})")
+    @Insert("INSERT INTO BATCH(VOLUME, OG, FG, ABV, USERID, BREWDATE, TAPDATE, CREATEDBY, LASTUPDATEDBY) " +
+            "VALUES(#{volume}, #{og}, #{fg}, #{abv}, #{userId}, #{brewDate}, #{tapDate}, #{createdBy}, #{lastUpdatedBy})")
     @Options(useGeneratedKeys = true, keyProperty = "batchId")
     void insertBatch(Batch batch);
 
     //values are wrong
 //    @Update("UPDATE BATCH SET NAME = #{name}, TYPE = #{type}, IBU = #{ibu}, " +
 //            "RECIPELINK = #{recipeLink}, USERID = #{userId} WHERE BATCHID = #{batchId}")
-    @Update("UPDATE BATCH SET VOLUME = #{volume}, OG = #{og}, FG = #{fg}, ABV = #{abv}, " +
-            "USERID = #{userId}, BREWDATE = #{brewDate}, TAPDATE = #{tapDate} WHERE BATCHID = #{batchId}")
+    @Update("UPDATE BATCH SET VOLUME = #{volume}, OG = #{og}, FG = #{fg}, ABV = #{abv}, USERID = #{userId}, " +
+            "BREWDATE = #{brewDate}, TAPDATE = #{tapDate}, LASTUPDATEDBY= #{lastUpdatedBy} WHERE BATCHID = #{batchId}")
     void updateBatch(Batch batch);
 
     @Delete("DELETE FROM BATCH WHERE BATCHID = #{batchId}")

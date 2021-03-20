@@ -44,4 +44,11 @@ public class UserService {
     public Integer getUserId(String username) {
         return userMapper.getUserId(username);
     }
+
+    public String getUserFullname(Integer userId){
+        User user = userMapper.getUserFromId(userId);
+        String firstname = user.getFirstname();
+        String lastname = user.getLastname();
+        return firstname.trim() + " " + lastname.trim();
+    }
 }

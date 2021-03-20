@@ -7,6 +7,24 @@ public class Beer {
     private Integer ibu;
     private String recipeLink;
     private Integer userId;
+    private String createdBy;
+    private String lastUpdatedBy;
+
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
+
+    public void setLastUpdatedBy(String lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
     public String getName() {
         return name;
