@@ -29,6 +29,8 @@ public class BatchService {
             batch.setAbv(calculateAbv(batchForm.getOg(), batchForm.getFg()));
         }
         batch.setUserId(this.userId);
+        batch.setCreatedBy(userService.getUserFullname(this.userId));
+        batch.setLastUpdatedBy(userService.getUserFullname(this.userId));
         batch.setTapDate(batchForm.getTapDate());
 
         this.batchMapper.insertBatch(batch);
@@ -41,6 +43,7 @@ public class BatchService {
         batch.setBrewDate(batchForm.getBrewDate());
         batch.setOg(batchForm.getOg());
         batch.setUserId(this.userId);
+        batch.setLastUpdatedBy(userService.getUserFullname(this.userId));
         batch.setTapDate(batchForm.getTapDate());
         if (batchForm.getFg() == null){
             batch.setFg(0f);

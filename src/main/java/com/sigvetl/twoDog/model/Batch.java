@@ -14,6 +14,24 @@ public class Batch {
     private Float fg;
     private Integer beerId;
     private Integer userId;
+    private String createdBy;
+    private String lastUpdatedBy;
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
+
+    public void setLastUpdatedBy(String lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
 
     public Integer getBatchId() {
         return batchId;

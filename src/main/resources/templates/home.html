@@ -118,7 +118,7 @@
                                     <th style="width: 5%" scope="col">Original gravity</th>
                                     <th style="width: 5%" scope="col">Final gravity</th>
                                     <th style="width: 5%" scope="col">Alcohol %</th>
-                                    <th style="width: 5%" scope="col">Added By userId</th>
+                                    <th style="width: 5%" scope="col">Last Edited By</th>
                                 </tr>
                             </thead>
                             <tbody th:each="batch : ${batches}">
@@ -137,7 +137,7 @@
                                 <td id="og" th:text="${batch.og}">Example Original Gravity</td>
                                 <td id="fg" th:text="${batch.fg} ?: 'N/A'">Example Final Gravity</td>
                                 <td id="abv" th:text="${batch.abv} ?: 'N/A'">Example Alcohol %</td>
-                                <td id="batchUserId" th:text="${batch.userId}">Example Added By</td>
+                                <td id="batchLastUpdatedBy" th:text="${batch.lastUpdatedBy}">Example Last Updated By</td>
                             </tr>
                             </tbody>
                         </table>
