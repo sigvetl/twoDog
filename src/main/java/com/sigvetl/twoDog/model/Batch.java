@@ -16,6 +16,24 @@ public class Batch {
     private Integer userId;
     private String createdBy;
     private String lastUpdatedBy;
+    private String quality;
+    private String comments;
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
     public String getCreatedBy() {
         return createdBy;

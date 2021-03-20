@@ -32,6 +32,8 @@ public class BatchService {
         batch.setCreatedBy(userService.getUserFullname(this.userId));
         batch.setLastUpdatedBy(userService.getUserFullname(this.userId));
         batch.setTapDate(batchForm.getTapDate());
+        batch.setQuality(batchForm.getQuality());
+        batch.setComments(batchForm.getComments());
 
         this.batchMapper.insertBatch(batch);
     }
@@ -45,6 +47,8 @@ public class BatchService {
         batch.setUserId(this.userId);
         batch.setLastUpdatedBy(userService.getUserFullname(this.userId));
         batch.setTapDate(batchForm.getTapDate());
+        batch.setQuality(batchForm.getQuality());
+        batch.setComments(batchForm.getComments());
         if (batchForm.getFg() == null){
             batch.setFg(0f);
             batch.setAbv(0f);

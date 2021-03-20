@@ -15,6 +15,25 @@ public class BatchForm {
     private Float abv;
     private Float og;
     private Float fg;
+    private String quality;
+    private String comments;
+
+    public String getQuality() {
+        return quality;
+    }
+
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
     private Integer beerId;
 
     public Integer getBatchId() {

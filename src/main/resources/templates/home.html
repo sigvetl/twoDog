@@ -125,8 +125,9 @@
                             <tr>
                                 <td>
                                     <button id="edit-batch" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]],[[${batch.getVolume()}]],
-                                            [[${batch.getOg()}]], [[${batch.getFg()}]],[[${batch.getAbv()}]], [[${batch.getBrewDate()}]], [[${batch.getTapDate()}]])">
+                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]], [[${batch.getVolume()}]],
+                                            [[${batch.getOg()}]], [[${batch.getFg()}]],[[${batch.getAbv()}]], [[${batch.getBrewDate()}]], [[${batch.getTapDate()}]],
+                                            [[${batch.getQuality()}]], [[${batch.getComments()}]])">
                                         Edit</button>
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
@@ -179,6 +180,14 @@
                                             <label for="batch-abv" class="col-form-label">Alcohol by volume</label>
                                             <input th:field="*{abv}" type="number" step="any" name= "abv" class="form-control" id="batch-abv" max="2" readonly>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="batch-quality" class="col-form-label">Quality</label>
+                                            <input th:field="*{quality}" type="text" name= "quality" class="form-control" id="batch-quality" maxlength="10">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="batch-comments" class="col-form-label">Comments</label>
+                                            <textarea th:field="*{comments}" name= "comments" class="form-control" id="batch-comments" rows="5" maxlength="1000"></textarea>
+                                        </div>
                                         <button id="batchSubmit" type="submit" class="d-none"></button>
                                     </form>
                                 </div>
@@ -210,7 +219,7 @@
         }
 
         // For opening batch modal
-        function showBatchModal(batchId, volume, og, fg, abv, brewDate, tapDate) {
+        function showBatchModal(batchId, volume, og, fg, abv, brewDate, tapDate, quality ,comments) {
             $('#batch-id').val(batchId ? batchId : '');
             $('#batch-brewDate').val(brewDate ? brewDate : '');
             $('#batch-tapDate').val(tapDate ? tapDate : '');
@@ -218,6 +227,8 @@
             $('#batch-og').val(og ? og : '');
             $('#batch-fg').val(fg ? fg : '');
             $('#batch-abv').val(abv ? abv : '');
+            $('#batch-quality').val(quality ? quality : '');
+            $('#batch-comments').val(comments ? comments : '');
             $('#batchModal').modal('show');
         }
     </script>

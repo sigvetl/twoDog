@@ -32,5 +32,7 @@ CREATE TABLE IF NOT EXISTS BATCH (
   userid INT,
   createdby VARCHAR(40),
   lastupdatedby VARCHAR(40),
+  quality VARCHAR(10),
+  comments VARCHAR(1000),
   foreign key (userid) references USERS(userid)
 );
