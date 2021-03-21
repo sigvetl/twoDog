@@ -41,6 +41,5 @@ public class HomeController {
         model.addAttribute("beers", beerService.getBeers());
         model.addAttribute("batches", batchService.getBatches());
         model.addAttribute("currentid", userService.getUserId(auth.getName()));
-        //model.addAttribute("users", userService.getUsers());
     }
 }

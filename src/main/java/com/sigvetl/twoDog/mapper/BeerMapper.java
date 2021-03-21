@@ -15,6 +15,9 @@ public interface BeerMapper {
     @Select("SELECT * FROM BEER WHERE beerid=#{beerId}")
     Integer getBeer(Beer beer);
 
+    @Select("SELECT * FROM BEER WHERE beerid=#{beerId}")
+    Beer getBeerById(Integer beerId);
+
     //@Insert("INSERT INTO BEER(NAME, TYPE, IBU, RECIPELINK, USERID) " +
     //        "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")
     @Insert("INSERT INTO BEER(NAME, TYPE, USERID, IBU, RECIPELINK, CREATEDBY, LASTUPDATEDBY) " +

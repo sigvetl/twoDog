@@ -17,6 +17,7 @@ public class BatchForm {
     private Float fg;
     private String quality;
     private String comments;
+    private Integer beerId;
 
     public String getQuality() {
         return quality;
@@ -33,8 +34,6 @@ public class BatchForm {
     public void setComments(String comments) {
         this.comments = comments;
     }
-
-    private Integer beerId;
 
     public Integer getBatchId() {
         return batchId;

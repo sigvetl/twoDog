@@ -44,7 +44,8 @@
                             <tr>
                                 <td>
                                     <button id="edit-beer" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]],[[${beer.getName()}]],[[${beer.getType()}]],[[${beer.getIbu()}]],[[${beer.getRecipeLink()}]] )">
+                                            th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]], [[${beer.getName()}]],
+                                            [[${beer.getType()}]],[[${beer.getIbu()}]],[[${beer.getRecipeLink()}]] )">
                                         Edit
                                     </button>
                                     <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
@@ -112,6 +113,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10%" scope="col"></th>
+                                    <th style="width: 5%" scope="col">Beer Name</th>
                                     <th style="width: 5%" scope="col">Brew Date</th>
                                     <th style="width: 5%" scope="col">Tap Date</th>
                                     <th style="width: 5%" scope="col">Volume</th>
@@ -125,13 +127,14 @@
                             <tr>
                                 <td>
                                     <button id="edit-batch" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]], [[${batch.getVolume()}]],
-                                            [[${batch.getOg()}]], [[${batch.getFg()}]],[[${batch.getAbv()}]], [[${batch.getBrewDate()}]], [[${batch.getTapDate()}]],
-                                            [[${batch.getQuality()}]], [[${batch.getComments()}]])">
+                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]], [[${batch.getBatchId()}]], [[${batch.getVolume()}]],
+                                            [[${batch.getOg()}]], [[${batch.getFg()}]],[[${batch.getAbv()}]], [[${batch.getBrewDate()}]],
+                                            [[${batch.getTapDate()}]], [[${batch.getQuality()}]], [[${batch.getComments()}]])">
                                         Edit</button>
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
                                 <!-- direct access to variables or use getters? -->
+                                <td id="batchBeerName" th:text="${batch.getBeerName()}">Example Beer Name</td>
                                 <td id="brewDate" th:text="${batch.getBrewDate()}">Example Brew Date</td>
                                 <td id="tapDate" th:text="${batch.getTapDate() ?: 'TBD'}">Example Tap Date</td>
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
@@ -157,6 +160,13 @@
                                     <form th:action="@{/batches}" th:object="${batchForm}" method="POST">
                                         <input th:field="*{batchId}" type="hidden" name="batchId" id="batch-id">
                                         <div class="form-group">
+                                            <label for="batch-beername" class="col-form-label">Beer Name</label>
+                                            <select th:field="*{beerId}" type="number" name="batchBeerName" class="form-control" id="batch-beername" required>
+                                                <option th:each="beer : ${beers}" th:value="${beer.beerId}" th:text="${beer.name}">
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="batch-brewDate" class="col-form-label">Brew Date</label>
                                             <input th:field="*{brewDate}" type="date" name= "brewDate" class="form-control" id="batch-brewDate" required>
                                         </div>
@@ -174,7 +184,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-fg" class="col-form-label">Final Gravity</label>
-                                            <input th:field="*{fg}" type="number" step="any" name= "og" class="form-control" id="batch-fg" min="1" max="1.08">
+                                            <input th:field="*{fg}" type="number" step="any" name= "fg" class="form-control" id="batch-fg" min="1" max="1.08">
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-abv" class="col-form-label">Alcohol by volume</label>
@@ -223,8 +233,9 @@
         }
 
         // For opening batch modal
-        function showBatchModal(batchId, volume, og, fg, abv, brewDate, tapDate, quality ,comments) {
+        function showBatchModal(batchId, beerId, volume, og, fg, abv, brewDate, tapDate, quality ,comments) {
             $('#batch-id').val(batchId ? batchId : '');
+            $('#batch-beerid').val(beerId ? beerId : '');
             $('#batch-brewDate').val(brewDate ? brewDate : '');
             $('#batch-tapDate').val(tapDate ? tapDate : '');
             $('#batch-volume').val(volume ? volume : '');

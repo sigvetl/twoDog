@@ -22,17 +22,20 @@ CREATE TABLE IF NOT EXISTS BEER (
 CREATE TABLE IF NOT EXISTS BATCH (
   batchid INT PRIMARY KEY auto_increment,
   volume FLOAT,
-  beerid INT REFERENCES BEER(beerid),
   og FLOAT,
   fg FLOAT,
   abv FLOAT,
   brewdate DATE,
   tapdate DATE,
   --finishdate DATE,
-  userid INT,
   createdby VARCHAR(40),
   lastupdatedby VARCHAR(40),
   quality VARCHAR(10),
   comments VARCHAR(1000),
-  foreign key (userid) references USERS(userid)
+  beername VARCHAR(40), --not null
+  beertype VARCHAR(20), --not null
+  userid INT,
+  beerid INT,
+  foreign key (userid) references USERS(userid),
+  foreign key (beerid) references BEER(beerid)
 );

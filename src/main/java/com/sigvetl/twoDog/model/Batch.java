@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 public class Batch {
     private Integer batchId;
+    private Integer beerId;
+    private Integer userId;
     private Float volume;
     private LocalDate brewDate;
     private LocalDate tapDate;
@@ -12,12 +14,19 @@ public class Batch {
     private Float abv;
     private Float og;
     private Float fg;
-    private Integer beerId;
-    private Integer userId;
     private String createdBy;
     private String lastUpdatedBy;
     private String quality;
     private String comments;
+    private String beerName;
+
+    public String getBeerName() {
+        return beerName;
+    }
+
+    public void setBeerName(String beerName) {
+        this.beerName = beerName;
+    }
 
     public String getQuality() {
         return quality;
