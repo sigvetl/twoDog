@@ -114,6 +114,7 @@
                                 <tr>
                                     <th style="width: 10%" scope="col"></th>
                                     <th style="width: 5%" scope="col">Beer Name</th>
+                                    <th style="width: 5%" scope="col">Beer Type</th>
                                     <th style="width: 5%" scope="col">Brew Date</th>
                                     <th style="width: 5%" scope="col">Tap Date</th>
                                     <th style="width: 5%" scope="col">Volume</th>
@@ -127,14 +128,15 @@
                             <tr>
                                 <td>
                                     <button id="edit-batch" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]], [[${batch.getBatchId()}]], [[${batch.getVolume()}]],
+                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]], [[${batch.getBeerId()}]], [[${batch.getVolume()}]],
                                             [[${batch.getOg()}]], [[${batch.getFg()}]],[[${batch.getAbv()}]], [[${batch.getBrewDate()}]],
                                             [[${batch.getTapDate()}]], [[${batch.getQuality()}]], [[${batch.getComments()}]])">
                                         Edit</button>
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
                                 <!-- direct access to variables or use getters? -->
-                                <td id="batchBeerName" th:text="${batch.getBeerName()}">Example Beer Name</td>
+                                <td id="batchBeerName" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getName()}">Example Beer Name</td>
+                                <td id="batchBeerType" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getType()}">Example Beer Type</td>
                                 <td id="brewDate" th:text="${batch.getBrewDate()}">Example Brew Date</td>
                                 <td id="tapDate" th:text="${batch.getTapDate() ?: 'TBD'}">Example Tap Date</td>
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
