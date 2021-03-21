@@ -25,7 +25,7 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE userid = #{userId}")
     User getUserFromId(Integer userId);
 
-    @Insert("INSERT into Users(username, salt, password, firstname, lastname) VALUES(#{username}, #{salt}, #{password}, #{firstname}, #{lastname})")
+    @Insert("INSERT into Users(username, salt, password, firstname, lastname) VALUES(#{username}, #{salt}, #{password}, #{firstName}, #{lastName})")
     @Options(useGeneratedKeys = true, keyProperty = "userId")
     int insertUser(User user);
 }

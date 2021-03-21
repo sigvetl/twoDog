@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Base64;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -29,17 +28,13 @@ public class UserService {
         random.nextBytes(salt);
         String encodedSalt = Base64.getEncoder().encodeToString(salt);
         String hashedPassword = hashService.getHashedValue(user.getPassword(), encodedSalt);
-        System.out.println("salt: " + encodedSalt + " hashedPassword: " + hashedPassword);
-        return userMapper.insertUser(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstname(), user.getLastname()));
+        System.out.println("firstname: " + user.getFirstName() + " lastname: " + user.getLastName());
+        return userMapper.insertUser(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstName(), user.getLastName()));
     }
 
     public User getUser(String username) {
         return userMapper.getUser(username);
     }
-
-//    public List<User> getUsers(){
-//        return userMapper.getUsers();
-//    }
 
     public Integer getUserId(String username) {
         return userMapper.getUserId(username);
@@ -47,8 +42,8 @@ public class UserService {
 
     public String getUserFullname(Integer userId){
         User user = userMapper.getUserFromId(userId);
-        String firstname = user.getFirstname();
-        String lastname = user.getLastname();
+        String firstname = user.getFirstName();
+        String lastname = user.getLastName();
         return firstname.trim() + " " + lastname.trim();
     }
 }
