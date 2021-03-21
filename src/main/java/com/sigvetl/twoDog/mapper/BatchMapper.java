@@ -18,8 +18,10 @@ public interface BatchMapper {
     //values are wrong
 //    @Insert("INSERT INTO BATCH(VOLUME, BREWDATE, OG, RECIPELINK, USERID) " +
 //            "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")
-    @Insert("INSERT INTO BATCH(VOLUME, OG, FG, ABV, USERID, BREWDATE, TAPDATE, CREATEDBY, LASTUPDATEDBY) " +
-            "VALUES(#{volume}, #{og}, #{fg}, #{abv}, #{userId}, #{brewDate}, #{tapDate}, #{createdBy}, #{lastUpdatedBy})")
+    @Insert("INSERT INTO BATCH(VOLUME, OG, FG, ABV, USERID, BREWDATE, TAPDATE, CREATEDBY, LASTUPDATEDBY, QUALITY," +
+            " COMMENTS, BEERID, BEERNAME) " +
+            "VALUES(#{volume}, #{og}, #{fg}, #{abv}, #{userId}, #{brewDate}, #{tapDate}, #{createdBy}, #{lastUpdatedBy}, " +
+            "#{quality}, #{comments}, #{beerId}, #{beerName})")
     @Options(useGeneratedKeys = true, keyProperty = "batchId")
     void insertBatch(Batch batch);
 
@@ -27,7 +29,8 @@ public interface BatchMapper {
 //    @Update("UPDATE BATCH SET NAME = #{name}, TYPE = #{type}, IBU = #{ibu}, " +
 //            "RECIPELINK = #{recipeLink}, USERID = #{userId} WHERE BATCHID = #{batchId}")
     @Update("UPDATE BATCH SET VOLUME = #{volume}, OG = #{og}, FG = #{fg}, ABV = #{abv}, USERID = #{userId}, " +
-            "BREWDATE = #{brewDate}, TAPDATE = #{tapDate}, LASTUPDATEDBY= #{lastUpdatedBy} WHERE BATCHID = #{batchId}")
+            "BREWDATE = #{brewDate}, TAPDATE = #{tapDate}, LASTUPDATEDBY= #{lastUpdatedBy}, QUALITY= #{quality}, " +
+            "COMMENTS= #{comments}, BEERID= #{beerId}, BEERNAME= #{beerName} WHERE BATCHID = #{batchId}")
     void updateBatch(Batch batch);
 
     @Delete("DELETE FROM BATCH WHERE BATCHID = #{batchId}")

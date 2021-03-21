@@ -32,6 +32,9 @@ public class SignupController {
             signupError = "The username already exists.";
         }
 
+        System.out.println("signupcontroller "+user.getFirstName());
+        System.out.println(user.getLastName());
+
         if (signupError == null) {
             int rowsAdded = userService.createUser(user);
             if (rowsAdded < 0) {

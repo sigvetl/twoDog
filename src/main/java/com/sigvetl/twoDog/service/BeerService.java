@@ -61,4 +61,8 @@ public class BeerService {
     public void trackLoggedInUserId(String username){
         this.userId = userService.getUser(username).getUserId();
     }
+
+    public String getBeerNameById(Integer beerId){
+        return beerMapper.getBeerById(beerId).getName();
+    }
 }

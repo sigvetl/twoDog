@@ -7,9 +7,9 @@ insert into beer(beerid, name, type, ibu, recipelink, userid, createdby, lastupd
 (1, 'lucky jack', 'pale ale', 60, 'http://www.vg.no', 1, 's s', 's s'),
 (2, 'ringnes', 'pilsner', 40, 'http://www.dagbladet.no', 1, 's s', 's s');
 
-insert into batch(batchid, volume, beerid, og, fg, abv, brewdate, tapdate, userid, createdby, lastupdatedby)
-values(1, 25, 1, 1.06, 1.012, 0.05, DATE '2020-09-09', DATE '2020-09-25', 2, 'admin admin', 'admin admin'),
-(2, 23, 1, 1.04, 1.010, 0.048, DATE '2020-10-09', DATE '2020-11-01', 1, 's s', 's s');
+insert into batch(batchid, volume, beerid, og, fg, brewdate, tapdate, userid, createdby, lastupdatedby, quality, comments)
+values(1, 25, 2, 1.06, 1.012, DATE '2020-09-09', DATE '2020-09-25', 2, 'admin admin', 'admin admin', 'Good', 'example comment'),
+(2, 23, 1, 1.04, 1.010, DATE '2020-10-09', DATE '2020-11-01', 1, 's s', 's s', 'Bad', 'too carbonated');
 
 
 
