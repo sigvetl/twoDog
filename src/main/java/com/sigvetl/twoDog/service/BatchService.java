@@ -37,7 +37,6 @@ public class BatchService {
         batch.setQuality(batchForm.getQuality());
         batch.setComments(batchForm.getComments());
         batch.setBeerId(batchForm.getBeerId());
-        batch.setBeerName(beerService.getBeerNameById(batchForm.getBeerId()));
 
         this.batchMapper.insertBatch(batch);
     }
@@ -54,7 +53,6 @@ public class BatchService {
         batch.setQuality(batchForm.getQuality());
         batch.setComments(batchForm.getComments());
         batch.setBeerId(batchForm.getBeerId());
-        batch.setBeerName(beerService.getBeerNameById(batchForm.getBeerId()));
         if (batchForm.getFg() == null){
             batch.setFg(0f);
             batch.setAbv(0f);

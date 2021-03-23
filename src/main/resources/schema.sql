@@ -12,7 +12,12 @@ CREATE TABLE IF NOT EXISTS BEER (
   name VARCHAR(40) NOT NULL,
   type VARCHAR(20),
   ibu INT,
-  recipelink VARCHAR(60),
+  og FLOAT,
+  fg FLOAT,
+  abv FLOAT,
+  ebc FLOAT,
+  recipelink VARCHAR(100),
+  pictureLink VARCHAR(100),
   userid INT,
   createdby VARCHAR(40),
   lastupdatedby VARCHAR(40),
@@ -32,10 +37,8 @@ CREATE TABLE IF NOT EXISTS BATCH (
   lastupdatedby VARCHAR(40),
   quality VARCHAR(10),
   comments VARCHAR(1000),
-  beername VARCHAR(40), --not null
-  beertype VARCHAR(20), --not null
-  userid INT,
-  beerid INT,
+  userid INT not null,
+  beerid INT not null,
   foreign key (userid) references USERS(userid),
   foreign key (beerid) references BEER(beerid)
 );

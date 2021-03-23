@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home", true);
     }
 
+    //For testing. Remove or secure before production
     @Override
     public void configure(WebSecurity web) throws Exception {
         web

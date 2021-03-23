@@ -11,6 +11,10 @@
 <body>
     <div class="container">
         <div id="logoutDiv">
+            <!-- create div, specify div size, set banner to cover size of div-->
+            <div style="width: 1050px; height: 150px;">
+                <img src="banner-png-40212.png" width="100%" height="100%">
+            </div>
             <form th:action="@{/logout}" action="#" method="POST">
                 <button id="logout-button" type="submit" class="btn btn-secondary float-right">Logout</button>
             </form>
@@ -114,6 +118,7 @@
                                 <tr>
                                     <th style="width: 10%" scope="col"></th>
                                     <th style="width: 5%" scope="col">Beer Name</th>
+                                    <th style="width: 5%" scope="col">Beer Type</th>
                                     <th style="width: 5%" scope="col">Brew Date</th>
                                     <th style="width: 5%" scope="col">Tap Date</th>
                                     <th style="width: 5%" scope="col">Volume</th>
@@ -127,14 +132,15 @@
                             <tr>
                                 <td>
                                     <button id="edit-batch" type="button" class="btn btn-success"
-                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]], [[${batch.getBatchId()}]], [[${batch.getVolume()}]],
+                                            th:onclick="javascript:showBatchModal( [[${batch.getBatchId()}]], [[${batch.getBeerId()}]], [[${batch.getVolume()}]],
                                             [[${batch.getOg()}]], [[${batch.getFg()}]],[[${batch.getAbv()}]], [[${batch.getBrewDate()}]],
                                             [[${batch.getTapDate()}]], [[${batch.getQuality()}]], [[${batch.getComments()}]])">
                                         Edit</button>
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
                                 <!-- direct access to variables or use getters? -->
-                                <td id="batchBeerName" th:text="${batch.getBeerName()}">Example Beer Name</td>
+                                <td id="batchBeerName" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getName()}">Example Beer Name</td>
+                                <td id="batchBeerType" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getType()}">Example Beer Type</td>
                                 <td id="brewDate" th:text="${batch.getBrewDate()}">Example Brew Date</td>
                                 <td id="tapDate" th:text="${batch.getTapDate() ?: 'TBD'}">Example Tap Date</td>
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
@@ -162,8 +168,7 @@
                                         <div class="form-group">
                                             <label for="batch-beername" class="col-form-label">Beer Name</label>
                                             <select th:field="*{beerId}" type="number" name="batchBeerName" class="form-control" id="batch-beername" required>
-                                                <option th:each="beer : ${beers}" th:value="${beer.beerId}" th:text="${beer.name}">
-                                                </option>
+                                                <option th:each="beer : ${beers}" th:value="${beer.beerId}" th:text="${beer.name}"></option>
                                             </select>
                                         </div>
                                         <div class="form-group">
