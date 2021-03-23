@@ -11,6 +11,10 @@
 <body>
     <div class="container">
         <div id="logoutDiv">
+            <!-- create div, specify div size, set banner to cover size of div-->
+            <div style="width: 1050px; height: 150px;">
+                <img src="banner-png-40212.png" width="100%" height="100%">
+            </div>
             <form th:action="@{/logout}" action="#" method="POST">
                 <button id="logout-button" type="submit" class="btn btn-secondary float-right">Logout</button>
             </form>
