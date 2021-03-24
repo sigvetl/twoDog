@@ -36,12 +36,17 @@
                         <table class="table table-striped" id="userTable">
                             <thead>
                             <tr>
-                                <th style="width: 20%" scope="col"></th>
-                                <th style="width: 20%" scope="col">Name</th>
-                                <th style="width: 20%" scope="col">Type</th>
-                                <th style="width: 20%" scope="col">IBU</th>
-                                <th style="width: 20%" scope="col">RecipeLink</th>
-                                <th style="width: 20%" scope="col">Last Edited By</th>
+                                <th style="width: 15%" scope="col"></th>
+                                <th style="width: 10%" scope="col"></th>
+                                <th style="width: 10%" scope="col">Name</th>
+                                <th style="width: 10%" scope="col">Type</th>
+                                <th style="width: 5%" scope="col">IBU</th>
+                                <th style="width: 5%" scope="col">OG</th>
+                                <th style="width: 5%" scope="col">FG</th>
+                                <th style="width: 5%" scope="col">ABV</th>
+                                <th style="width: 5%" scope="col">EBC</th>
+                                <th style="width: 5%" scope="col">Recipe</th>
+                                <th style="width: 5%" scope="col">Last Edited By</th>
                             </tr>
                             </thead>
                             <tbody th:each="beer : ${beers}">
@@ -54,13 +59,22 @@
                                     </button>
                                     <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
                                 </td>
+                                <th id="beerLogo" scope="row">
+                                    <div style="width: 100px; height: 80px;">
+                                        <img th:src="${beer.pictureLink}" width="100%" height="100%">
+                                    </div>
+                                </th>
                                 <th id="beerName" th:text="${beer.name}" scope="row">Example Name</th>
                                 <td id="beerType" th:text="${beer.type}">Example Type</td>
-                                <th id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</th>
+                                <td id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</td>
+                                <td id="beerOg" th:text="${beer.og}" scope="row">Example OG</td>
+                                <td id="beerFg" th:text="${beer.fg}" scope="row">Example FG</td>
+                                <td id="BeerAbv" th:text="${beer.abv}" scope="row">Example ABV</td>
+                                <td id="beerEbc" th:text="${beer.ebc}" scope="row">Example EBC</td>
 
-                                <td id="beerRecipeLink">
+                                <td id="beerRecipeLink" th:if="${beer.recipeLink}">
                                     <a th:href="${beer.recipeLink}">
-                                        <span th:text="${beer.recipeLink}"></span>
+                                        <span th:text="Link"></span>
                                     </a></td>
                                 <td id="beerLastUpdatedBy" th:text="${beer.lastUpdatedBy}">Example Last Updated By</td>
                             </tr>

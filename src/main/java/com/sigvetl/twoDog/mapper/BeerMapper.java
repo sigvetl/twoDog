@@ -20,7 +20,7 @@ public interface BeerMapper {
 
     @Select("SELECT * FROM BEER WHERE name=#{name}")
     Beer getBeerByName(Beer beer);
-    
+
     @Insert("INSERT INTO BEER(NAME, TYPE, USERID, IBU, RECIPELINK, CREATEDBY, LASTUPDATEDBY, abv, ebc, og, fg, picturelink) " +
             "VALUES(#{name}, #{type}, #{userId}, #{ibu}, #{recipeLink}, #{createdBy}, #{lastUpdatedBy}," +
             " #{abv}, #{ebc}, #{og}, #{fg}, #{pictureLink})")
