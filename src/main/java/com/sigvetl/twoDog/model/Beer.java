@@ -5,11 +5,11 @@ public class Beer {
     private String name;
     private String type;
     private Integer beerId;
+    private Integer ibu;
     private Float og;
     private Float fg;
     private Float ebc;
     private Float abv;
-    private Integer ibu;
     private String recipeLink;
     private String pictureLink;
     private Integer userId;

@@ -54,7 +54,8 @@
                                 <td>
                                     <button id="edit-beer" type="button" class="btn btn-success"
                                             th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]], [[${beer.getName()}]],
-                                            [[${beer.getType()}]],[[${beer.getIbu()}]],[[${beer.getRecipeLink()}]] )">
+                                            [[${beer.getType()}]],[[${beer.getIbu()}]], [[${beer.getOg()}]], [[${beer.getFg()}]],
+                                            [[${beer.getAbv()}]], [[${beer.getEbc()}]], [[${beer.getRecipeLink()}]], [[${beer.getRecipeLink()}]] )">
                                         Edit
                                     </button>
                                     <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
@@ -104,11 +105,31 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="beer-ibu" class="col-form-label">IBU</label>
-                                            <input th:field="*{ibu}" type="number" class="form-control" name="ibu" id="beer-ibu" min="0" max="120" required>
+                                            <input th:field="*{ibu}" type="number" class="form-control" name="ibu" id="beer-ibu" min="0" max="120" >
                                         </div>
                                         <div class="form-group">
-                                            <label for="beer-recipelink" class="col-form-label">RecipeLink</label>
+                                            <label for="beer-og" class="col-form-label">Original Gravity</label>
+                                            <input th:field="*{og}" type="number" class="form-control" name="og" id="beer-og" min="1" max="2" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-fg" class="col-form-label">Final Gravity</label>
+                                            <input th:field="*{fg}" type="number" class="form-control" name="fg" id="beer-fg" min="1" max="2" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-abv" class="col-form-label">ABV</label>
+                                            <input th:field="*{abv}" type="number" class="form-control" name="abv" id="beer-abv" min="1" max="15" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-ebc" class="col-form-label">EBC</label>
+                                            <input th:field="*{ebc}" type="number" class="form-control" name="ebc" id="beer-ebc" min="1" max="100" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-recipelink" class="col-form-label">Recipe Link</label>
                                             <input th:field="*{recipeLink}" type="text" class="form-control" name="recipeLink" id="beer-recipelink" maxlength="100" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-picturelink" class="col-form-label">Picture Link</label>
+                                            <input th:field="*{pictureLink}" type="text" class="form-control" name="pictureLink" id="beer-picturelink" maxlength="200" >
                                         </div>
                                         <button id="beerSubmit" type="submit" class="d-none"></button>
                                     </form>
@@ -242,12 +263,17 @@
 
     <script type="text/javascript">
         // For opening beer modal
-        function showBeerModal(beerId, name, type, ibu, recipeLink) {
+        function showBeerModal(beerId, name, type, ibu, og, fg, abv, ebc, recipeLink, pictureLink) {
             $('#beer-id').val(beerId ? beerId : '');
             $('#beer-name').val(name ? name : '');
             $('#beer-type').val(type ? type : '');
             $('#beer-ibu').val(ibu ? ibu : '');
+            $('#beer-og').val(og ? og : '');
+            $('#beer-fg').val(fg ? fg : '');
+            $('#beer-abv').val(abv ? abv : '');
+            $('#beer-ebc').val(ebc ? ebc : '');
             $('#beer-recipelink').val(recipeLink ? recipeLink : '');
+            $('#beer-picturelink').val(pictureLink ? pictureLink : '');
             $('#beerModal').modal('show');
         }
 
