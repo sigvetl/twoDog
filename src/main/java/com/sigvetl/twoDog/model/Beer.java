@@ -1,14 +1,60 @@
 package com.sigvetl.twoDog.model;
 
+
 public class Beer {
     private String name;
     private String type;
     private Integer beerId;
+    private Float og;
+    private Float fg;
+    private Float ebc;
+    private Float abv;
     private Integer ibu;
     private String recipeLink;
+    private String pictureLink;
     private Integer userId;
     private String createdBy;
     private String lastUpdatedBy;
+
+    public Float getOg() {
+        return og;
+    }
+
+    public void setOg(Float og) {
+        this.og = og;
+    }
+
+    public Float getFg() {
+        return fg;
+    }
+
+    public void setFg(Float fg) {
+        this.fg = fg;
+    }
+
+    public Float getEbc() {
+        return ebc;
+    }
+
+    public void setEbc(Float ebc) {
+        this.ebc = ebc;
+    }
+
+    public Float getAbv() {
+        return abv;
+    }
+
+    public void setAbv(Float abv) {
+        this.abv = abv;
+    }
+
+    public String getPictureLink() {
+        return pictureLink;
+    }
+
+    public void setPictureLink(String pictureLink) {
+        this.pictureLink = pictureLink;
+    }
 
     public String getLastUpdatedBy() {
         return lastUpdatedBy;

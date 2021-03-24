@@ -19,6 +19,20 @@ public class BeerService {
 
     private Integer userId = null;
 
+    public void createFromApi(Beer beer){
+        beer.setUserId(this.userId);
+        beer.setCreatedBy(userService.getUserFullname(this.userId));
+        beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
+        this.beerMapper.insertBeer(beer);
+    }
+
+    public void updateFromApi(Beer beer){
+        beer.setUserId(this.userId);
+        beer.setCreatedBy(userService.getUserFullname(this.userId));
+        beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
+        this.beerMapper.updateBeer(beer);
+    }
+
     public void createBeer(BeerForm beerForm){
         Beer beer = new Beer();
         beer.setIbu(beerForm.getIbu());
@@ -56,6 +70,15 @@ public class BeerService {
         beer.setBeerId(beerForm.getBeerId());
         boolean exists = this.beerMapper.getBeer(beer) != null;
         return exists;
+    }
+
+    public int beerNameExists(Beer beer){
+        Beer returnedBeer = this.beerMapper.getBeerByName(beer);
+        if (returnedBeer != null){
+            return returnedBeer.getBeerId();
+        } else{
+            return 0;
+        }
     }
 
     public void trackLoggedInUserId(String username){
