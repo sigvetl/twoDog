@@ -10,6 +10,7 @@ Dependencies: <br>
 
  
 To run: <br>
+The following scripts both loads a server, and you need one bash session for each script
 &nbsp;&nbsp;&nbsp;&nbsp;  navigate to directory: [path_to_directory]/twoDog/ <br>
 &nbsp;&nbsp;&nbsp;&nbsp;  python3 scrape_bryggselv.py <br>
 &nbsp;&nbsp;&nbsp;&nbsp;  mvn spring-boot:run <br>
