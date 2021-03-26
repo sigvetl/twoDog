@@ -4,6 +4,8 @@ import re
 import time
 import string
 from flask import Flask, jsonify
+import threading
+import concurrent.futures
 
 app = Flask(__name__)
 
@@ -102,6 +104,64 @@ def get_data(links):
 
     return beer_list
 
+def get_data1(url):
+
+    temp = requests.get(url)
+    html = temp.text
+    baseurl = "https://www.bryggselv.no"
+    document = BeautifulSoup(html, 'html.parser')
+
+    bilde = document.find_all("img", {"class": "rsImg"})
+    link = bilde[0].get("src")
+    link = str(link)
+    link = baseurl + link
+
+    div = document.find_all("div", {"class":"heading-container"})
+    tittel = div[0].find("h1")
+    tittel = str(tittel)
+    tittel = re.sub("<.+?>", "", tittel)
+
+
+    div = document.find_all("div", {"class": "prod-text-content"})
+    a = div[0].find("a")
+    oppskrift = a.get("href")
+    oppskrift = str(oppskrift)
+    info = div[0].find("strong")
+    info = re.sub("~|%|\+", "", str(info))
+    info = re.sub(",", ".", info)
+    infolist = str(info).split()
+
+    og = infolist[1].split("-")
+    og = avg_value(og, float) if len(og) == 2 else float(og[0])
+
+    ibu = infolist[4].split("-")
+    ibu = avg_value(ibu, int) if len(ibu) == 2 else int(ibu[0])
+
+    abv = infolist[7].split("-")
+    abv = avg_value(abv, float) if len(abv) == 2 else float(abv[0])
+
+    fg = infolist[10].split("-")
+    fg = avg_value(fg, float) if len(fg) == 2 else float(fg[0])
+
+    ebc = infolist[12].split("-")
+    ebc = avg_value(ebc, float) if len(ebc) == 2 else float(infolist[12])
+    #print(infolist)
+
+    print("inserting beer " + tittel)
+    return beer_list.append(" i")
+
+
+def scrape_objects(URLS):
+    beer_list=[]
+    for url in URLS[:-1]:
+  #folderName = url.split('/')[-1] # the name of the folder
+        # with concurrent.futures.ThreadPoolExecutor() as executor:
+        #     future = executor.submit(get_data1, url)
+        #     beer_list.append(future.result())
+        processThread = threading.Thread(
+            target=get_data1, args=(url)) # parameters and functions have to be passed separately
+        processThread.start() # start the thread
+
 def avg_value(list, type):
     baseval = type(list[0])
     highval = type("1.0" + list[1])
@@ -129,8 +189,10 @@ def get_beers():
 
 if __name__ == "__main__":
     links = get_links()
+    beer_list = scrape_objects(links)
+    print(beer_list)
     #last link does not contain beer info
-    beer_list = get_data(links[:-1])
-    json_objects = create_json(beer_list)
+    #beer_list = get_data(links[:-1])
+    #json_objects = create_json(beer_list)
 
-    app.run(debug=True)
+    #app.run(debug=True)
