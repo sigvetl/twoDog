@@ -18,17 +18,18 @@ public interface BeerMapper {
     @Select("SELECT * FROM BEER WHERE beerid=#{beerId}")
     Beer getBeerById(Integer beerId);
 
-    //@Insert("INSERT INTO BEER(NAME, TYPE, IBU, RECIPELINK, USERID) " +
-    //        "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")
-    @Insert("INSERT INTO BEER(NAME, TYPE, USERID, IBU, RECIPELINK, CREATEDBY, LASTUPDATEDBY) " +
-            "VALUES(#{name}, #{type}, #{userId}, #{ibu}, #{recipeLink}, #{createdBy}, #{lastUpdatedBy})")
+    @Select("SELECT * FROM BEER WHERE name=#{name}")
+    Beer getBeerByName(Beer beer);
+
+    @Insert("INSERT INTO BEER(NAME, TYPE, USERID, IBU, RECIPELINK, CREATEDBY, LASTUPDATEDBY, abv, ebc, og, fg, picturelink) " +
+            "VALUES(#{name}, #{type}, #{userId}, #{ibu}, #{recipeLink}, #{createdBy}, #{lastUpdatedBy}," +
+            " #{abv}, #{ebc}, #{og}, #{fg}, #{pictureLink})")
     @Options(useGeneratedKeys = true, keyProperty = "beerId")
     void insertBeer(Beer beer);
 
-//    @Update("UPDATE BEER SET NAME = #{name}, TYPE = #{type}, IBU = #{ibu}, " +
-//            "RECIPELINK = #{recipeLink}, USERID = #{userId} WHERE BEERID = #{beerId}")
     @Update("UPDATE BEER SET NAME = #{name}, TYPE = #{type}, USERID = #{userId}, IBU = #{ibu}, " +
-            "RECIPELINK = #{recipeLink}, LASTUPDATEDBY = #{lastUpdatedBy} WHERE BEERID = #{beerId}")
+            "RECIPELINK = #{recipeLink}, LASTUPDATEDBY = #{lastUpdatedBy}, abv = #{abv}, ebc = #{ebc}," +
+            "og = #{og}, fg = #{fg}, picturelink = #{pictureLink} WHERE BEERID = #{beerId}")
     void updateBeer(Beer beer);
 
     @Delete("DELETE FROM BEER WHERE BEERID = #{beerId}")

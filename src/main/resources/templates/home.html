@@ -36,12 +36,17 @@
                         <table class="table table-striped" id="userTable">
                             <thead>
                             <tr>
-                                <th style="width: 20%" scope="col"></th>
-                                <th style="width: 20%" scope="col">Name</th>
-                                <th style="width: 20%" scope="col">Type</th>
-                                <th style="width: 20%" scope="col">IBU</th>
-                                <th style="width: 20%" scope="col">RecipeLink</th>
-                                <th style="width: 20%" scope="col">Last Edited By</th>
+                                <th style="width: 15%" scope="col"></th>
+                                <th style="width: 10%" scope="col"></th>
+                                <th style="width: 10%" scope="col">Name</th>
+                                <th style="width: 10%" scope="col">Type</th>
+                                <th style="width: 5%" scope="col">IBU</th>
+                                <th style="width: 5%" scope="col">OG</th>
+                                <th style="width: 5%" scope="col">FG</th>
+                                <th style="width: 5%" scope="col">ABV</th>
+                                <th style="width: 5%" scope="col">EBC</th>
+                                <th style="width: 5%" scope="col">Recipe</th>
+                                <th style="width: 5%" scope="col">Last Edited By</th>
                             </tr>
                             </thead>
                             <tbody th:each="beer : ${beers}">
@@ -49,18 +54,28 @@
                                 <td>
                                     <button id="edit-beer" type="button" class="btn btn-success"
                                             th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]], [[${beer.getName()}]],
-                                            [[${beer.getType()}]],[[${beer.getIbu()}]],[[${beer.getRecipeLink()}]] )">
+                                            [[${beer.getType()}]],[[${beer.getIbu()}]], [[${beer.getOg()}]], [[${beer.getFg()}]],
+                                            [[${beer.getAbv()}]], [[${beer.getEbc()}]], [[${beer.getRecipeLink()}]], [[${beer.getRecipeLink()}]] )">
                                         Edit
                                     </button>
                                     <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
                                 </td>
+                                <th id="beerLogo" scope="row">
+                                    <div style="width: 100px; height: 80px;">
+                                        <img th:src="${beer.pictureLink}" width="100%" height="100%">
+                                    </div>
+                                </th>
                                 <th id="beerName" th:text="${beer.name}" scope="row">Example Name</th>
                                 <td id="beerType" th:text="${beer.type}">Example Type</td>
-                                <th id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</th>
+                                <td id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</td>
+                                <td id="beerOg" th:text="${beer.og}" scope="row">Example OG</td>
+                                <td id="beerFg" th:text="${beer.fg}" scope="row">Example FG</td>
+                                <td id="BeerAbv" th:text="${beer.abv}" scope="row">Example ABV</td>
+                                <td id="beerEbc" th:text="${beer.ebc}" scope="row">Example EBC</td>
 
-                                <td id="beerRecipeLink">
+                                <td id="beerRecipeLink" th:if="${beer.recipeLink}">
                                     <a th:href="${beer.recipeLink}">
-                                        <span th:text="${beer.recipeLink}"></span>
+                                        <span th:text="Link"></span>
                                     </a></td>
                                 <td id="beerLastUpdatedBy" th:text="${beer.lastUpdatedBy}">Example Last Updated By</td>
                             </tr>
@@ -90,11 +105,31 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="beer-ibu" class="col-form-label">IBU</label>
-                                            <input th:field="*{ibu}" type="number" class="form-control" name="ibu" id="beer-ibu" min="0" max="120" required>
+                                            <input th:field="*{ibu}" type="number" class="form-control" name="ibu" id="beer-ibu" min="0" max="120" >
                                         </div>
                                         <div class="form-group">
-                                            <label for="beer-recipelink" class="col-form-label">RecipeLink</label>
+                                            <label for="beer-og" class="col-form-label">Original Gravity</label>
+                                            <input th:field="*{og}" type="number" class="form-control" name="og" id="beer-og" min="1" max="2" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-fg" class="col-form-label">Final Gravity</label>
+                                            <input th:field="*{fg}" type="number" class="form-control" name="fg" id="beer-fg" min="1" max="2" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-abv" class="col-form-label">ABV</label>
+                                            <input th:field="*{abv}" type="number" class="form-control" name="abv" id="beer-abv" min="1" max="15" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-ebc" class="col-form-label">EBC</label>
+                                            <input th:field="*{ebc}" type="number" class="form-control" name="ebc" id="beer-ebc" min="1" max="100" step="any" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-recipelink" class="col-form-label">Recipe Link</label>
                                             <input th:field="*{recipeLink}" type="text" class="form-control" name="recipeLink" id="beer-recipelink" maxlength="100" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="beer-picturelink" class="col-form-label">Picture Link</label>
+                                            <input th:field="*{pictureLink}" type="text" class="form-control" name="pictureLink" id="beer-picturelink" maxlength="200" >
                                         </div>
                                         <button id="beerSubmit" type="submit" class="d-none"></button>
                                     </form>
@@ -164,11 +199,15 @@
                                 </div>
                                 <div class="modal-body">
                                     <form th:action="@{/batches}" th:object="${batchForm}" method="POST">
-                                        <input th:field="*{batchId}" type="hidden" name="batchId" id="batch-id">
+                                        <input type="hidden" name="batchId" id="batch-id">
                                         <div class="form-group">
                                             <label for="batch-beername" class="col-form-label">Beer Name</label>
                                             <select th:field="*{beerId}" type="number" name="batchBeerName" class="form-control" id="batch-beername" required>
-                                                <option th:each="beer : ${beers}" th:value="${beer.beerId}" th:text="${beer.name}"></option>
+                                                <option th:each="beer : ${beers}"
+                                                        th:value="${beer.beerId}"
+                                                        th:text="${beer.name}"
+                                                        th:selected="${beer.beerId}" <!-- does not work with th:field -->
+                                                ></option>
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -228,12 +267,17 @@
 
     <script type="text/javascript">
         // For opening beer modal
-        function showBeerModal(beerId, name, type, ibu, recipeLink) {
+        function showBeerModal(beerId, name, type, ibu, og, fg, abv, ebc, recipeLink, pictureLink) {
             $('#beer-id').val(beerId ? beerId : '');
             $('#beer-name').val(name ? name : '');
             $('#beer-type').val(type ? type : '');
             $('#beer-ibu').val(ibu ? ibu : '');
+            $('#beer-og').val(og ? og : '');
+            $('#beer-fg').val(fg ? fg : '');
+            $('#beer-abv').val(abv ? abv : '');
+            $('#beer-ebc').val(ebc ? ebc : '');
             $('#beer-recipelink').val(recipeLink ? recipeLink : '');
+            $('#beer-picturelink').val(pictureLink ? pictureLink : '');
             $('#beerModal').modal('show');
         }
 
