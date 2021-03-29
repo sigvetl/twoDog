@@ -12,7 +12,7 @@
     <div class="container">
         <div id="logoutDiv">
             <!-- create div, specify div size, set banner to cover size of div-->
-            <div style="width: 1050px; height: 150px;">
+            <div style="width: 970px; height: 200px;">
                 <img src="images/banner-png-40212.png" width="100%" height="100%">
             </div>
             <form th:action="@{/logout}" action="#" method="POST">
@@ -152,6 +152,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10%" scope="col"></th>
+                                    <th style="width: 10%" scope="col"></th>
                                     <th style="width: 5%" scope="col">Beer Name</th>
                                     <th style="width: 5%" scope="col">Beer Type</th>
                                     <th style="width: 5%" scope="col">Brew Date</th>
@@ -174,6 +175,11 @@
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
                                 <!-- direct access to variables or use getters? -->
+                                <th id="batchLogo" scope="row">
+                                    <div style="width: 80px; height: 100px;">
+                                        <img src="images/Logo2.PNG" width="100%" height="100%">
+                                    </div>
+                                </th>
                                 <td id="batchBeerName" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getName()}">Example Beer Name</td>
                                 <td id="batchBeerType" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getType()}">Example Beer Type</td>
                                 <td id="brewDate" th:text="${batch.getBrewDate()}">Example Brew Date</td>
