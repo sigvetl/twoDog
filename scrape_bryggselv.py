@@ -150,7 +150,7 @@ def get_data1(url):
     print("inserting beer " + tittel)
     return beer_list.append(" i")
 
-
+#experimental - not working
 def scrape_objects(URLS):
     beer_list=[]
     for url in URLS[:-1]:
@@ -189,10 +189,10 @@ def get_beers():
 
 if __name__ == "__main__":
     links = get_links()
-    beer_list = scrape_objects(links)
-    print(beer_list)
+    #beer_list = scrape_objects(links)
+    #print(beer_list)
     #last link does not contain beer info
-    #beer_list = get_data(links[:-1])
-    #json_objects = create_json(beer_list)
+    beer_list = get_data(links[:-1])
+    json_objects = create_json(beer_list)
 
-    #app.run(debug=True)
+    app.run(debug=True)
