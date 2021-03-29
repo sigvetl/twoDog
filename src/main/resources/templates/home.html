@@ -43,7 +43,7 @@
                                 <th style="width: 5%" scope="col">IBU</th>
                                 <th style="width: 5%" scope="col">OG</th>
                                 <th style="width: 5%" scope="col">FG</th>
-                                <th style="width: 5%" scope="col">ABV</th>
+                                <th style="width: 10%" scope="col">ABV</th>
                                 <th style="width: 5%" scope="col">EBC</th>
                                 <th style="width: 5%" scope="col">Recipe</th>
                                 <th style="width: 5%" scope="col">Last Edited By</th>
@@ -70,7 +70,7 @@
                                 <td id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</td>
                                 <td id="beerOg" th:text="${beer.og}" scope="row">Example OG</td>
                                 <td id="beerFg" th:text="${beer.fg}" scope="row">Example FG</td>
-                                <td id="BeerAbv" th:text="${beer.abv}" scope="row">Example ABV</td>
+                                <td id="BeerAbv" th:text="${beer.abv + ' %'}" scope="row">Example ABV</td>
                                 <td id="beerEbc" th:text="${beer.ebc}" scope="row">Example EBC</td>
 
                                 <td id="beerRecipeLink" th:if="${beer.recipeLink}">
@@ -187,7 +187,8 @@
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
                                 <td id="og" th:text="${batch.og}">Example Original Gravity</td>
                                 <td id="fg" th:text="${batch.fg} ?: 'N/A'">Example Final Gravity</td>
-                                <td id="abv" th:text="${batch.abv} ?: 'N/A'">Example Alcohol %</td>
+                                <td id="abv" th:text="${batch.abv} ? ${batch.abv + ' %'} : 'N/A'">
+                                    Example Alcohol %</td>
                                 <td id="batchLastUpdatedBy" th:text="${batch.lastUpdatedBy}">Example Last Updated By</td>
                             </tr>
                             </tbody>
