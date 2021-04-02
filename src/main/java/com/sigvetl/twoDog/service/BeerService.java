@@ -42,6 +42,11 @@ public class BeerService {
         beer.setUserId(this.userId);
         beer.setCreatedBy(userService.getUserFullname(this.userId));
         beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
+        beer.setOg(beerForm.getOg());
+        beer.setFg(beerForm.getFg());
+        beer.setPictureLink(beerForm.getPictureLink());
+        beer.setAbv(beerForm.getAbv());
+        beer.setEbc(beerForm.getEbc());
         this.beerMapper.insertBeer(beer);
     }
 
@@ -54,6 +59,11 @@ public class BeerService {
         beer.setRecipeLink(beerForm.getRecipeLink());
         beer.setUserId(this.userId);
         beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
+        beer.setOg(beerForm.getOg());
+        beer.setFg(beerForm.getFg());
+        beer.setPictureLink(beerForm.getPictureLink());
+        beer.setAbv(beerForm.getAbv());
+        beer.setEbc(beerForm.getEbc());
         this.beerMapper.updateBeer(beer);
     }
 

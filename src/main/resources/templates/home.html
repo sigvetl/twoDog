@@ -55,7 +55,7 @@
                                     <button id="edit-beer" type="button" class="btn btn-success"
                                             th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]], [[${beer.getName()}]],
                                             [[${beer.getType()}]],[[${beer.getIbu()}]], [[${beer.getOg()}]], [[${beer.getFg()}]],
-                                            [[${beer.getAbv()}]], [[${beer.getEbc()}]], [[${beer.getRecipeLink()}]], [[${beer.getRecipeLink()}]] )">
+                                            [[${beer.getAbv()}]], [[${beer.getEbc()}]], [[${beer.getRecipeLink()}]], [[${beer.getPictureLink()}]] )">
                                         Edit
                                     </button>
                                     <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
@@ -219,11 +219,11 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-brewDate" class="col-form-label">Brew Date</label>
-                                            <input th:field="*{brewDate}" type="date" name= "brewDate" class="form-control" id="batch-brewDate" required>
+                                            <input th:field="*{brewDate}" type="date" name="brewDate" class="form-control" id="batch-brewDate" placeholder="yyyy-mm-dd" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-tapDate" class="col-form-label">Tap Date</label>
-                                            <input th:field="*{tapDate}" type="date" name= "tapDate" class="form-control" id="batch-tapDate">
+                                            <input th:field="*{tapDate}" type="date" name= "tapDate" class="form-control" id="batch-tapDate" placeholder="yyyy-mm-dd">
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-volume" class="col-form-label">Volume</label>

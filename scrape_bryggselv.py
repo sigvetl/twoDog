@@ -83,19 +83,19 @@ def get_data(links):
         infolist = str(info).split()
 
         og = infolist[1].split("-")
-        og = avg_value(og, float) if len(og) == 2 else float(og[0])
+        og = avg_value_og_fg(og, float) if len(og) == 2 else float(og[0])
 
         ibu = infolist[4].split("-")
-        ibu = avg_value(ibu, int) if len(ibu) == 2 else int(ibu[0])
+        ibu = avg_value_abv_ibu_ebc(ibu, int) if len(ibu) == 2 else int(ibu[0])
 
         abv = infolist[7].split("-")
-        abv = avg_value(abv, float) if len(abv) == 2 else float(abv[0])
+        abv = avg_value_abv_ibu_ebc(abv, float) if len(abv) == 2 else float(abv[0])
 
         fg = infolist[10].split("-")
-        fg = avg_value(fg, float) if len(fg) == 2 else float(fg[0])
+        fg = avg_value_og_fg(fg, float) if len(fg) == 2 else float(fg[0])
 
         ebc = infolist[12].split("-")
-        ebc = avg_value(ebc, float) if len(ebc) == 2 else float(infolist[12])
+        ebc = avg_value_abv_ibu_ebc(ebc, float) if len(ebc) == 2 else float(infolist[12])
         #print(infolist)
 
 
@@ -132,19 +132,19 @@ def get_data1(url):
     infolist = str(info).split()
 
     og = infolist[1].split("-")
-    og = avg_value(og, float) if len(og) == 2 else float(og[0])
+    og = avg_value_og_fg(og, float) if len(og) == 2 else float(og[0])
 
     ibu = infolist[4].split("-")
-    ibu = avg_value(ibu, int) if len(ibu) == 2 else int(ibu[0])
+    ibu = avg_value_abv_ibu_ebc(ibu, int) if len(ibu) == 2 else int(ibu[0])
 
     abv = infolist[7].split("-")
-    abv = avg_value(abv, float) if len(abv) == 2 else float(abv[0])
+    abv = avg_value_abv_ibu_ebc(abv, float) if len(abv) == 2 else float(abv[0])
 
     fg = infolist[10].split("-")
-    fg = avg_value(fg, float) if len(fg) == 2 else float(fg[0])
+    fg = avg_value_og_fg(fg, float) if len(fg) == 2 else float(fg[0])
 
     ebc = infolist[12].split("-")
-    ebc = avg_value(ebc, float) if len(ebc) == 2 else float(infolist[12])
+    ebc = avg_value_abv_ibu_ebc(ebc, float) if len(ebc) == 2 else float(infolist[12])
     #print(infolist)
 
     print("inserting beer " + tittel)
@@ -162,9 +162,15 @@ def scrape_objects(URLS):
             target=get_data1, args=(url)) # parameters and functions have to be passed separately
         processThread.start() # start the thread
 
-def avg_value(list, type):
+def avg_value_og_fg(list, type):
     baseval = type(list[0])
     highval = type("1.0" + list[1])
+    diff = highval-baseval
+    return baseval + (diff/2)
+
+def avg_value_abv_ibu_ebc(list, type):
+    baseval = type(list[0])
+    highval = type(list[1])
     diff = highval-baseval
     return baseval + (diff/2)
 
