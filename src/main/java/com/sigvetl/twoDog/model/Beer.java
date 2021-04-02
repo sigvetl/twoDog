@@ -1,6 +1,5 @@
 package com.sigvetl.twoDog.model;
 
-
 public class Beer {
     private String name;
     private String type;
@@ -15,6 +14,15 @@ public class Beer {
     private Integer userId;
     private String createdBy;
     private String lastUpdatedBy;
+    private Boolean userCreated;
+
+    public Boolean getUserCreated() {
+        return userCreated;
+    }
+
+    public void setUserCreated(Boolean userCreated) {
+        this.userCreated = userCreated;
+    }
 
     public Float getOg() {
         return og;

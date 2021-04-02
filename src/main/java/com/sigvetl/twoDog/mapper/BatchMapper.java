@@ -16,6 +16,9 @@ public interface BatchMapper {
     @Select("SELECT * FROM BATCH WHERE batchid=#{batchId}")
     Integer getBatch(Batch batch);
 
+    @Select("SELECT * FROM BATCH WHERE BEERID=#{beerid}")
+    List<Batch> getBatchBeerId(int beerId);
+
     //values are wrong
 //    @Insert("INSERT INTO BATCH(VOLUME, BREWDATE, OG, RECIPELINK, USERID) " +
 //            "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")

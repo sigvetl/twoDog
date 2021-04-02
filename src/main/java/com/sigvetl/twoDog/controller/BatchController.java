@@ -42,9 +42,7 @@ public class BatchController {
     @GetMapping("/batch/delete/{batchid}")
     public String deleteBatch(@PathVariable("batchid") Integer batchId, Authentication auth, BeerForm beerForm, BatchForm batchForm, Model model){
         this.batchService.deleteBatch(batchId);
-
         HomeController.updateHome(auth, model, this.beerService, this.batchService, this.userService);
-
         return "home";
     }
 
