@@ -72,6 +72,10 @@ public class BatchService {
         return this.batchMapper.getAllBatches();
     }
 
+    public List<Batch> getBatchReferencingBeer(int beerId){
+        return this.batchMapper.getBatchBeerId(beerId);
+    }
+
     public boolean batchExists(BatchForm batchForm){
         Batch batch = new Batch();
         batch.setBatchId(batchForm.getBatchId());

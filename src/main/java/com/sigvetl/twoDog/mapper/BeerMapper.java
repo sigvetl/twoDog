@@ -9,7 +9,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface BeerMapper {
-    @Select("SELECT * FROM BEER")
+    @Select("SELECT * FROM BEER " +
+            "ORDER BY NAME")
     List<Beer> getAllBeers();
 
     @Select("SELECT * FROM BEER WHERE beerid=#{beerId}")
