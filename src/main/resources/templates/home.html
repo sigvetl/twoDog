@@ -12,8 +12,13 @@
     <div class="container">
         <div id="logoutDiv">
             <!-- create div, specify div size, set banner to cover size of div-->
-            <div style="width: 1050px; height: 150px;">
-                <img src="banner-png-40212.png" width="100%" height="100%">
+            <script type="text/javascript">
+                var screenWidth = window.innerWidth;
+                var bannerHeight = (screenWidth / 4.85) + 'px';
+                var bannerWidth = screenWidth + 'px';
+            </script>
+            <div style="width: bannerWidth; height: bannerHeight;">
+                <img src="images/banner-png-40212.png" width="100%" height="100%">
             </div>
             <form th:action="@{/logout}" action="#" method="POST">
                 <button id="logout-button" type="submit" class="btn btn-secondary float-right">Logout</button>
@@ -43,7 +48,7 @@
                                 <th style="width: 5%" scope="col">IBU</th>
                                 <th style="width: 5%" scope="col">OG</th>
                                 <th style="width: 5%" scope="col">FG</th>
-                                <th style="width: 5%" scope="col">ABV</th>
+                                <th style="width: 10%" scope="col">ABV</th>
                                 <th style="width: 5%" scope="col">EBC</th>
                                 <th style="width: 5%" scope="col">Recipe</th>
                                 <th style="width: 5%" scope="col">Last Edited By</th>
@@ -55,7 +60,7 @@
                                     <button id="edit-beer" type="button" class="btn btn-success"
                                             th:onclick="javascript:showBeerModal( [[${beer.getBeerId()}]], [[${beer.getName()}]],
                                             [[${beer.getType()}]],[[${beer.getIbu()}]], [[${beer.getOg()}]], [[${beer.getFg()}]],
-                                            [[${beer.getAbv()}]], [[${beer.getEbc()}]], [[${beer.getRecipeLink()}]], [[${beer.getRecipeLink()}]] )">
+                                            [[${beer.getAbv()}]], [[${beer.getEbc()}]], [[${beer.getRecipeLink()}]], [[${beer.getPictureLink()}]] )">
                                         Edit
                                     </button>
                                     <a id="delete-beer" class="btn btn-danger" th:href="@{/beers/delete/{beerid}(beerid=${beer.beerId})}">Delete</a>
@@ -70,7 +75,7 @@
                                 <td id="BeerIbu" th:text="${beer.ibu}" scope="row">Example IBU</td>
                                 <td id="beerOg" th:text="${beer.og}" scope="row">Example OG</td>
                                 <td id="beerFg" th:text="${beer.fg}" scope="row">Example FG</td>
-                                <td id="BeerAbv" th:text="${beer.abv}" scope="row">Example ABV</td>
+                                <td id="BeerAbv" th:text="${beer.abv + ' %'}" scope="row">Example ABV</td>
                                 <td id="beerEbc" th:text="${beer.ebc}" scope="row">Example EBC</td>
 
                                 <td id="beerRecipeLink" th:if="${beer.recipeLink}">
@@ -152,6 +157,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 10%" scope="col"></th>
+                                    <th style="width: 10%" scope="col"></th>
                                     <th style="width: 5%" scope="col">Beer Name</th>
                                     <th style="width: 5%" scope="col">Beer Type</th>
                                     <th style="width: 5%" scope="col">Brew Date</th>
@@ -174,6 +180,11 @@
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
                                 <!-- direct access to variables or use getters? -->
+                                <th id="batchLogo" scope="row">
+                                    <div style="width: 80px; height: 100px;">
+                                        <img src="images/Logo2.PNG" width="100%" height="100%">
+                                    </div>
+                                </th>
                                 <td id="batchBeerName" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getName()}">Example Beer Name</td>
                                 <td id="batchBeerType" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}" th:text="${beer.getType()}">Example Beer Type</td>
                                 <td id="brewDate" th:text="${batch.getBrewDate()}">Example Brew Date</td>
@@ -181,7 +192,8 @@
                                 <td id="volume" th:text="${batch.volume}">Example Volume</td>
                                 <td id="og" th:text="${batch.og}">Example Original Gravity</td>
                                 <td id="fg" th:text="${batch.fg} ?: 'N/A'">Example Final Gravity</td>
-                                <td id="abv" th:text="${batch.abv} ?: 'N/A'">Example Alcohol %</td>
+                                <td id="abv" th:text="${batch.abv} ? ${batch.abv + ' %'} : 'N/A'">
+                                    Example Alcohol %</td>
                                 <td id="batchLastUpdatedBy" th:text="${batch.lastUpdatedBy}">Example Last Updated By</td>
                             </tr>
                             </tbody>
@@ -206,17 +218,17 @@
                                                 <option th:each="beer : ${beers}"
                                                         th:value="${beer.beerId}"
                                                         th:text="${beer.name}"
-                                                        th:selected="${beer.beerId}" <!-- does not work with th:field -->
+                                                        th:selected="${beerId}"
                                                 ></option>
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-brewDate" class="col-form-label">Brew Date</label>
-                                            <input th:field="*{brewDate}" type="date" name= "brewDate" class="form-control" id="batch-brewDate" required>
+                                            <input th:field="*{brewDate}" type="date" name="brewDate" class="form-control" id="batch-brewDate" placeholder="yyyy-mm-dd" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-tapDate" class="col-form-label">Tap Date</label>
-                                            <input th:field="*{tapDate}" type="date" name= "tapDate" class="form-control" id="batch-tapDate">
+                                            <input th:field="*{tapDate}" type="date" name= "tapDate" class="form-control" id="batch-tapDate" placeholder="yyyy-mm-dd">
                                         </div>
                                         <div class="form-group">
                                             <label for="batch-volume" class="col-form-label">Volume</label>

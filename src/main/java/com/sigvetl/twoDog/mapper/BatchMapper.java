@@ -9,7 +9,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface BatchMapper {
-    @Select("SELECT * FROM BATCH")
+    @Select("SELECT * FROM BATCH " +
+            "ORDER BY BREWDATE DESC")
     List<Batch> getAllBatches();
 
     @Select("SELECT * FROM BATCH WHERE batchid=#{batchId}")
