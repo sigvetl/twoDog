@@ -23,6 +23,7 @@ public class BeerService {
         beer.setUserId(this.userId);
         beer.setCreatedBy(userService.getUserFullname(this.userId));
         beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
+        beer.setUserCreated(Boolean.FALSE);
         this.beerMapper.insertBeer(beer);
     }
 
@@ -30,6 +31,7 @@ public class BeerService {
         beer.setUserId(this.userId);
         beer.setCreatedBy(userService.getUserFullname(this.userId));
         beer.setLastUpdatedBy(userService.getUserFullname(this.userId));
+        beer.setUserCreated(Boolean.FALSE);
         this.beerMapper.updateBeer(beer);
     }
 
@@ -47,6 +49,7 @@ public class BeerService {
         beer.setPictureLink(beerForm.getPictureLink());
         beer.setAbv(beerForm.getAbv());
         beer.setEbc(beerForm.getEbc());
+        beer.setUserCreated(Boolean.TRUE);
         this.beerMapper.insertBeer(beer);
     }
 
@@ -64,6 +67,7 @@ public class BeerService {
         beer.setPictureLink(beerForm.getPictureLink());
         beer.setAbv(beerForm.getAbv());
         beer.setEbc(beerForm.getEbc());
+        beer.setUserCreated(Boolean.TRUE);
         this.beerMapper.updateBeer(beer);
     }
 
