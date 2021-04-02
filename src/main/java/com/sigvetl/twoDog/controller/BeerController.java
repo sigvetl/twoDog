@@ -52,30 +52,30 @@ public class BeerController {
     @GetMapping("api/beers")
         public String addUpdateBeersFromApi(Authentication auth, BeerForm beerForm, BatchForm batchForm, Model model) throws IOException {
 
-        URL url = new URL("http://127.0.0.1:5000/api/beers");
+            URL url = new URL("http://127.0.0.1:5000/api/beers");
 
-        ObjectMapper mapper = new ObjectMapper();
-        List<Beer> beers = Arrays.asList(mapper.readValue(url, Beer[].class));
+            ObjectMapper mapper = new ObjectMapper();
+            List<Beer> beers = Arrays.asList(mapper.readValue(url, Beer[].class));
 
-        for (Beer beer : beers){
-            Integer beerId = this.beerService.beerNameExists(beer);
-            if (beerId != 0){
-                beer.setBeerId(beerId);
-                this.beerService.updateFromApi(beer);
-            } else{
-                this.beerService.trackLoggedInUserId(auth.getName());
-                this.beerService.createFromApi(beer);
+            for (Beer beer : beers){
+                Integer beerId = this.beerService.beerNameExists(beer);
+                if (beerId != 0){
+                    beer.setBeerId(beerId);
+                    this.beerService.updateFromApi(beer);
+                } else{
+                    this.beerService.trackLoggedInUserId(auth.getName());
+                    this.beerService.createFromApi(beer);
+                }
+
+                System.out.println("beer: " +  beer.getName());
+                System.out.println("ibu: " +  beer.getIbu());
+                System.out.println("recipe link: " +  beer.getRecipeLink());
+                System.out.println("picture link: " +  beer.getPictureLink());
+                System.out.println("abv: " +  beer.getAbv());
+                System.out.println("ebc: " +  beer.getEbc());
             }
 
-            System.out.println("beer: " +  beer.getName());
-            System.out.println("ibu: " +  beer.getIbu());
-            System.out.println("recipe link: " +  beer.getRecipeLink());
-            System.out.println("picture link: " +  beer.getPictureLink());
-            System.out.println("abv: " +  beer.getAbv());
-            System.out.println("ebc: " +  beer.getEbc());
-        }
-
-        HomeController.updateHome(auth, model, this.beerService, this.batchService, this.userService);
+            HomeController.updateHome(auth, model, this.beerService, this.batchService, this.userService);
             return "home";
         }
 
