@@ -59,14 +59,6 @@ public class BeerController {
             ObjectMapper mapper = new ObjectMapper();
             List<Beer> beers = Arrays.asList(mapper.readValue(url, Beer[].class));
 
-            //Not a valid solution
-            try{
-                Thread.sleep(5000);
-            } catch(InterruptedException interruptedException){
-                System.out.println("interrupedException");
-            }
-
-
             for (Beer beer : beers){
                 Integer beerId = this.beerService.beerNameExists(beer);
                 if (beerId != 0){
