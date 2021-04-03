@@ -180,8 +180,11 @@
                                     <a id="delete-batch" class="btn btn-danger" th:href="@{/batch/delete/{batchid}(batchid=${batch.batchId})}">Delete</a>
                                 </td>
                                 <!-- direct access to variables or use getters? -->
-                                <th id="batchLogo" scope="row">
-                                    <div style="width: 80px; height: 100px;">
+                                <th id="batchLogo" scope="row" th:each="beer : ${beers}" th:if="${beer.getBeerId() == batch.getBeerId()}">
+                                    <div th:if="${beer.getPictureLink() != null}" style="width: 100px; height: 80px;">
+                                        <img th:src="${beer.getPictureLink()}" width="100%" height="100%">
+                                    </div>
+                                    <div th:if="${beer.getPictureLink() == null}" style="width: 80px; height: 100px;">
                                         <img src="../../images/logo2.png" width="100%" height="100%">
                                     </div>
                                 </th>
