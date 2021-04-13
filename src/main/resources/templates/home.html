@@ -217,11 +217,11 @@
                                         <input type="hidden" name="batchId" id="batch-id">
                                         <div class="form-group">
                                             <label for="batch-beername" class="col-form-label">Beer Name</label>
-                                            <select th:field="*{beerId}" type="number" name="batchBeerName" class="form-control" id="batch-beername" required>
+                                            <select type="number" name="batchBeerId" class="form-control" id="batch-beername" required>
                                                 <option th:each="beer : ${beers}"
                                                         th:value="${beer.beerId}"
+                                                        th:selected="*{batchBeerId}"
                                                         th:text="${beer.name}"
-                                                        th:selected="${beerId}"
                                                 ></option>
                                             </select>
                                         </div>
@@ -299,7 +299,7 @@
         // For opening batch modal
         function showBatchModal(batchId, beerId, volume, og, fg, abv, brewDate, tapDate, quality ,comments) {
             $('#batch-id').val(batchId ? batchId : '');
-            $('#batch-beerid').val(beerId ? beerId : '');
+            $('#batch-beername').val(beerId ? beerId : '');
             $('#batch-brewDate').val(brewDate ? brewDate : '');
             $('#batch-tapDate').val(tapDate ? tapDate : '');
             $('#batch-volume').val(volume ? volume : '');
@@ -310,6 +310,7 @@
             $('#batch-comments').val(comments ? comments : '');
             $('#batchModal').modal('show');
         }
+
     </script>
     </body>
 </html>

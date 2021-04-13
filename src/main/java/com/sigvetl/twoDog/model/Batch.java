@@ -17,15 +17,6 @@ public class Batch {
     private String lastUpdatedBy;
     private String quality;
     private String comments;
-    private String beerName;
-
-    public String getBeerName() {
-        return beerName;
-    }
-
-    public void setBeerName(String beerName) {
-        this.beerName = beerName;
-    }
 
     public String getQuality() {
         return quality;

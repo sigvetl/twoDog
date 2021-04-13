@@ -17,7 +17,15 @@ public class BatchForm {
     private Float fg;
     private String quality;
     private String comments;
-    private Integer beerId;
+    private Integer batchBeerId;
+
+    public Integer getBatchBeerId() {
+        return batchBeerId;
+    }
+
+    public void setBatchBeerId(Integer batchBeerId) {
+        this.batchBeerId = batchBeerId;
+    }
 
     public String getQuality() {
         return quality;
@@ -99,11 +107,4 @@ public class BatchForm {
         this.fg = fg;
     }
 
-    public Integer getBeerId() {
-        return beerId;
-    }
-
-    public void setBeerId(Integer beerId) {
-        this.beerId = beerId;
-    }
 }
