@@ -1,5 +1,6 @@
 package com.sigvetl.twoDog.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ public class DataSourceConfig {
 
     @Bean
     public DataSource getDataSource() {
+        System.out.println(url);
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.url(url);
         dataSourceBuilder.username(username);
