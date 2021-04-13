@@ -19,9 +19,6 @@ public interface BatchMapper {
     @Select("SELECT * FROM BATCH WHERE BEERID=#{beerid}")
     List<Batch> getBatchBeerId(int beerId);
 
-    //values are wrong
-//    @Insert("INSERT INTO BATCH(VOLUME, BREWDATE, OG, RECIPELINK, USERID) " +
-//            "VALUES(#{name}, #{type}, #{ibu}, #{recipeLink}, #{userId})")
     @Insert("INSERT INTO BATCH(VOLUME, OG, FG, ABV, USERID, BREWDATE, TAPDATE, CREATEDBY, LASTUPDATEDBY, QUALITY," +
             " COMMENTS, BEERID) " +
             "VALUES(#{volume}, #{og}, #{fg}, #{abv}, #{userId}, #{brewDate}, #{tapDate}, #{createdBy}, #{lastUpdatedBy}, " +
@@ -29,9 +26,6 @@ public interface BatchMapper {
     @Options(useGeneratedKeys = true, keyProperty = "batchId")
     void insertBatch(Batch batch);
 
-    //values are wrong
-//    @Update("UPDATE BATCH SET NAME = #{name}, TYPE = #{type}, IBU = #{ibu}, " +
-//            "RECIPELINK = #{recipeLink}, USERID = #{userId} WHERE BATCHID = #{batchId}")
     @Update("UPDATE BATCH SET VOLUME = #{volume}, OG = #{og}, FG = #{fg}, ABV = #{abv}, USERID = #{userId}, " +
             "BREWDATE = #{brewDate}, TAPDATE = #{tapDate}, LASTUPDATEDBY= #{lastUpdatedBy}, QUALITY= #{quality}, " +
             "COMMENTS= #{comments}, BEERID= #{beerId} WHERE BATCHID = #{batchId}")
